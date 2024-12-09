@@ -32,7 +32,7 @@ const Home = () => {
         topx_top_fleets: [],
         topx_last_bunkers: [],
     });
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
