@@ -1,0 +1,188 @@
+footer {
+    /* color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin: 0 auto;
+    flex-wrap: wrap;
+    width: 100%;*/
+    font-size: 14px;
+    color: #485160;
+    /* background-image: url('/public/assets/ft_bg.webp');
+    background-position: center top;
+    padding-top: 100px;
+    background-size: cover;
+    background-repeat: no-repeat; */
+    background-color: #02030a;
+}
+
+footer:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    z-index: 1;
+}
+
+footer .container {
+    position: relative;
+    padding: 0 15px;
+}
+
+.footer-left {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 0 0;
+    margin-bottom: 20px;
+}
+
+.footer-part-left-block {
+    width: 22%;
+    padding-right: 3%;
+    padding-top: 15px;
+    float: left;
+}
+
+.footer-part-left-block span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-part-left-block a {
+    color: #485160;
+    line-height: 25px;
+    text-decoration: none;
+}
+
+.footer-part-left-block a:hover {
+    color: #ffffff;
+}
+
+.footer-right {
+    flex: 1;
+    min-width: 300px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.footer-icons {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.footer-part-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    padding: 10px 0;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+}
+
+.footer-apps-btns {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.footer-apps-btn {
+    position: relative;
+    display: block;
+    width: 110px;
+    height: 100%;
+    cursor: pointer;
+    margin: 0 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+footer .statistics ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.i-app-discord {
+    background-image: url(/public/assets/discord-icon.png);
+}
+
+.i-app-kofi {
+    background-image: url(/public/assets/kofi-icon.png);
+    bottom: 3px;
+    width: 130px;
+}
+
+.dropdown-links {
+    display: none;
+    margin-top: 10px;
+}
+
+.dropdown-links.open {
+    display: block;
+}
+
+.dropdown-title {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+@media (min-width: 768px) and (max-width: 999px) {
+    #footer {
+        padding-top: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    footer {
+        justify-content: center;
+        align-items: center;
+        width: auto;
+    }
+
+    .footer-left,
+    .footer-right {
+        width: 100%;
+        /* text-align: center; */
+    }
+
+    .footer-icons {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .footer-part-left-block {
+        width: 20%;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 685px) {
+    .footer-part-bottom {
+        padding-bottom: 45px;
+    }
+
+    .footer-apps-btns {
+        left: 0;
+        justify-content: center;
+        height: 40px;
+    }
+
+    .footer-part-left-block {
+        width: 45%;
+    }
+}

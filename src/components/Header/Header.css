@@ -1,0 +1,162 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 26, 52, 0.95);
+    color: white;
+    padding: 8px 8px;
+    z-index: 10;
+    height: 35px;
+    background-color: #02030a;
+}
+
+header:after,
+header:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    z-index: 1;
+    bottom: -1px;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.logo a {
+    display: inline-block;
+}
+
+.logo-image {
+    width: auto;
+    height: 30px;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-selector {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.icon-link {
+    margin-left: 10px;
+}
+
+.icon {
+    height: 25px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: var(--header-height);
+    right: 0;
+    background-color: #333;
+    width: 250px;
+    padding: 10px;
+    z-index: 5;
+}
+
+.nav-list.open {
+    display: flex;
+}
+
+.large-screen-menu {
+    display: flex;
+    gap: 15px;
+    /* margin-left: 30px; */
+    flex-grow: 1;
+}
+
+.large-screen-menu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.large-screen-menu li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 5px;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.large-screen-menu li a:hover {
+    background-color: #bb6715;
+    border-radius: 5px;
+}
+
+.large-screen-menu li a.active {
+    background-color: #bb6715;
+    border-radius: 5px;
+}
+
+.small-screen-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: var(--header-height);
+    right: 0;
+    background-color: #333;
+    width: 250px;
+    padding: 10px;
+    z-index: 5;
+}
+
+.small-screen-menu.open {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .large-screen-menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .header-right {
+        display: none;
+    }
+
+    .nav-list {
+        right: 0;
+        width: 100%;
+    }
+}
