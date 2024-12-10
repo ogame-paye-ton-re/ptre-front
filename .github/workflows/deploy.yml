@@ -39,5 +39,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           sourceDir: ./build/
-          targetDir: .
+          targetDir: www
 
