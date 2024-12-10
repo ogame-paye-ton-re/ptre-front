@@ -31,3 +31,13 @@ jobs:
       run: npm run build
     #- name: Test project
     #  run: npm test
+    - name: deploy file
+      uses: AbleLincoln/push-to-sftp@v2.1
+      with:
+          host: ${{ secrets.SSH_HOST }}
+          port: 22
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          sourceDir: ./build/
+          targetDir: .
+
