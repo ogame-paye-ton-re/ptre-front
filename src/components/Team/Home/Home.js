@@ -164,7 +164,7 @@ const Home = () => {
                 {/* Latest Galaxy Events */}
                 <div className="box_1">
                     <div className="icon-title">
-                        <img src="/assets/ogame/mini/discoverer.png" alt="Sample Icon" className="section-icon" />
+                        <img src="/assets/ogame/mini/discoverer.png" alt="Discoverer Icon" className="section-icon" />
                         <h3>Last galaxy events</h3>
                     </div>
                     <Link to="?page=galaxy_event_explorer" className="section-link">
@@ -200,7 +200,7 @@ const Home = () => {
                 {/* Latest Spy Events */}
                 <div className="box_1">
                     <div className="icon-title">
-                        <img src="/assets/ogame/mini/general.png" alt="Sample Icon" className="section-icon" />
+                        <img src="/assets/ogame/mini/general.png" alt="General Icon" className="section-icon" />
                         <h3>Last Spy</h3>
                     </div>
                     <Link to="?page=last_spy" className="section-link">

@@ -18,7 +18,7 @@ const Header = () => {
     };
 
     const menuItems = [
-        { name: 'Presentation', url: '/?page=splash' },
+        { name: 'Home', url: '/' },
         { name: 'Galaxy Event Explorer', url: '/?page=galaxy_event_explorer' },
         { name: 'Position Finder', url: '/?page=position_8_finder' },
         { name: 'SS Finder', url: '/?page=empty_system_finder' },
@@ -36,6 +36,53 @@ const Header = () => {
                             <img src="/assets/ptre_logo_trans_header.png" alt="PTRE Logo" className="logo-image" />
                         </Link>
                     </div>
+
+                    <div className="navbar-left">
+                        <select className="designed-select">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </select>
+                        <span className="separator"></span>
+                        <div className="search-container">
+                            <img src="/assets/icons/search.webp" alt="Search" className="search-icon" />
+                            <input
+                                type="search"
+                                placeholder="Search..."
+                                className="search-input"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="header-right">
+                        <select className="language-selector">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                        </select>
+                        <span className="separator"></span>
+                        <a href="https://discord.gg/WsJGC9G" className="icon-link" target="_blank" rel="noopener noreferrer">
+                            <img src="/assets/discord-icon.png" alt="Discord" className="icon" />
+                        </a>
+                        <a href="https://ko-fi.com/ptreforogame" className="icon-link" target="_blank" rel="noopener noreferrer">
+                            <img src="/assets/kofi-icon.png" alt="Ko-Fi" className="icon" />
+                        </a>
+                        <span className="separator"></span>
+                        <Link to="/?page=team" className="login-link">
+                            <img src="/assets/icons/user.webp" alt="Profile" className="icon profile-icon" />
+                            Login
+                        </Link>
+                    </div>
+                    <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+                        ☰
+                    </button>
+                </div>
+            </div>
+            {/* Full-width Header Image */}
+            <div className="header-image">
+                <img src="https://placehold.co/1248x88/png" alt="Placeholder" className="full-width-image" />
+            </div>
+            {/* Second Navbar */}
+            <div className="navbar navbar2">
+                <div className="container">
                     <nav className="large-screen-menu">
                         <ul>
                             {menuItems.map((item, i) => (
@@ -49,29 +96,9 @@ const Header = () => {
                             ))}
                         </ul>
                     </nav>
-                    <div className="header-right">
-                        <select className="language-selector">
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                        </select>
-                        <a href="https://discord.com" className="icon-link" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/discord-icon.png" alt="Discord" className="icon" />
-                        </a>
-                        <a href="https://ko-fi.com" className="icon-link" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/kofi-icon.png" alt="Ko-Fi" className="icon" />
-                        </a>
-                    </div>
-                    <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
-                        ☰
-                    </button>
                 </div>
             </div>
-            {/* Full-width Header Image */}
-            <div className="header-image">
-                <img src="https://placehold.co/1248x88/png" alt="Placeholder" className="full-width-image" />
-            </div>
-            {/* Second Navbar */}
-            
+
             <nav className={`small-screen-menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
                     {Array.from({ length: 18 }, (_, i) => (

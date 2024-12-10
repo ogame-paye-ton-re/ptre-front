@@ -10,26 +10,15 @@ import { getCookie } from './utils/cookieUtils';
 import './App.css';
 
 const Splash = lazy(() => import('./components/Splash/Splash'));
+const TeamCreate = lazy(() => import('./components/Team/Create/Create'));
 const TeamDashboard = lazy(() => import('./components/Team/Home/Home'));
 
 function App() {
   const [teamKey, setTeamKey] = useState("");
 
   useEffect(() => {
-    // let sessionId = getCookie("session_id");
-    // let ptreId = getCookie("prte_id");
-
-    // if (!sessionId) {
-    //   sessionId = generateSessionId();
-    //   setCookie("session_id", sessionId, { path: "/" });
-    // }
-
-    // if (!ptreId) {
-    //   setCookie("prte_id", sessionId, { path: "/", expires: 2114377200 });
-    // }
-
-    const cookieValue = getCookie("ptre_team_key");
-    setTeamKey(cookieValue || "TMDCD4R6ZVT27BPEHU");
+    const ptreTeamKey = getCookie("ptre_team_key");
+    setTeamKey(ptreTeamKey || ""); // TMDCD4R6ZVT27BPEHU
   }, []);
 
   return (
@@ -61,7 +50,7 @@ function PageContent({ teamKey }) {
   }, [location]);
 
   const isSplashPage = () =>
-    currentPage === 'splash' || (location.pathname === '/' && !teamKey);
+    currentPage === 'splash' || (!currentPage && !teamKey);
 
   const renderPage = () => {
     console.log('Rendering page:', currentPage);
@@ -71,7 +60,13 @@ function PageContent({ teamKey }) {
       return <Splash />;
     }
 
-    if (location.pathname === '/' && teamKey && !currentPage) {
+    if (!teamKey) {
+      if (currentPage === "team" ) {
+        return <TeamCreate />;
+      }
+    }
+
+    if (!currentPage && teamKey) {
       return <TeamDashboard />;
     }
 

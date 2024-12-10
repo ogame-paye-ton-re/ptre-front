@@ -1,0 +1,136 @@
+/* Base layout */
+.box_1.create_team {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Left and Right Parts */
+.left-part, .right-part {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Icon and Title Styling */
+.icon-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.icon-title img.section-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.icon-title h3 {
+    font-size: 24px;
+    margin: 0;
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Descriptions */
+.description {
+    text-align: center;
+    font-size: 16px;
+    margin: 15px 0;
+    color: #666;
+}
+
+/* Input and Button Styling */
+.input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.input-container input {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: none;
+    color: #fff;
+}
+
+.input-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.input-container button:hover {
+    background-color: #333;
+}
+
+.team-details {
+    text-align: left;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.team-details p {
+    margin-bottom: 10px;
+}
+
+.team-details ul {
+    list-style-type: disclosure-closed;
+    padding-left: 20px;
+}
+
+.team-details li {
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .box_1.create_team {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .left-part, .right-part {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .icon-title img.section-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .input-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .input-container input {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .input-container button {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .team-details {
+        font-size: 14px;
+    }
+}

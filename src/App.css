@@ -10,7 +10,7 @@
   --text-color: #212529;
   --header-height: 60px;
   --font-family: 'RobotoRegular';
-  --header-height: 70px;
+  --header-height: 130px;
 }
 
 ::-webkit-scrollbar {
@@ -52,6 +52,11 @@ border: 1px solid #081938 !important;
 -webkit-text-fill-color: #fff;
 -webkit-box-shadow: 0 0 0px 1000px #00060d inset;
 transition: background-color 5000s ease-in-out 0s;
+}
+
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
 }
 
 html,

@@ -10,7 +10,7 @@ const Footer = () => {
                         {
                             title: "General",
                             links: [
-                                { href: "/#", text: "Presentation" },
+                                { href: "/?page=splash", text: "Presentation" },
                                 { href: "/#", text: "Discord Setup" },
                             ],
                         },
