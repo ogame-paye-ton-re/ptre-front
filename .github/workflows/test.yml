@@ -1,11 +1,12 @@
 # Build Project
 
-name: Deploy Project to Dev Env
+name: Build & Test Project
 
 on:
   workflow_dispatch:
   push:
-    branches: 
+  pull_request:
+    branches:
       - develop
   
 
@@ -27,12 +28,3 @@ jobs:
       run: npm run build
     #- name: Test project
     #  run: npm test
-    - name: Deploy Project to Dev
-      uses: AbleLincoln/push-to-sftp@v2.1
-      with:
-        host: ${{ secrets.DEV_SSH_HOST }}
-        port: 22
-        username: ${{ secrets.DEV_SSH_USER }}
-        privateKey: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
-        sourceDir: ./build/
-        targetDir: www
