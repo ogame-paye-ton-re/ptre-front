@@ -3,28 +3,10 @@ import { Link } from 'react-router-dom';
 
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 import api from './../../../utils/api';
-import { shortenNumber } from './../../../utils/numbers';
+import { mapTopBoxPlayerData, PlayerRow, GalaxyEventRow, SpyEventRow } from './../../../utils/ptre';
+
 
 import './Home.css';
-
-const PlayerRow = ({ iid, icon, playerName, days, fleetPoints, isFirst }) => (
-    <div className={`player-row-data ${isFirst ? 'first-player-row-data' : ''}`}>
-        {icon && <img src={icon} alt="Icon" className="player-icon" />}
-        <span>
-            <Link to={`/?iid=${iid}`}>
-                {playerName}
-            </Link> (
-            {days != null ? `${days} days` : `${(fleetPoints)} pts`}
-            )
-        </span>
-    </div>
-);
-
-const classIdToImage = {
-    '1': '/assets/ogame/mini/collector.png',
-    '2': '/assets/ogame/mini/general.png',
-    '3': '/assets/ogame/mini/discoverer.png',
-};
 
 const Home = () => {
     const [topBoxData, setTopBoxData] = useState({
@@ -32,37 +14,55 @@ const Home = () => {
         topx_top_fleets: [],
         topx_last_bunkers: [],
     });
-    const [data, setData] = useState([]);
+    const [eventBoxData, setEventBoxData] = useState({
+        last_galaxy_events: [],
+        last_spy_events: [],
+        last_spy_reports: [],
+    });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();
 
+        const fetchTopBoxData = async () => {
+            return api.post(
+                '/api.php?view=topx_box&country=fr&univers=256',
+                {
+                    team_key: 'TMDCD4R6ZVT27BPEHU', // TMNVLZGHJ75D01FR2D
+                },
+                { signal: controller.signal }
+            );
+        };
+
+        const fetchEventBoxData = async () => {
+            return api.post(
+                '/api.php?view=main&country=fr&univers=256',
+                {
+                    team_key: 'TMDCD4R6ZVT27BPEHU',
+                },
+                { signal: controller.signal }
+            );
+        };
+
         const fetchData = async () => {
             try {
-                const response = await api.post(
-                    '/api.php?view=topx_box&country=fr&univers=256',
-                    {
-                        team_key: 'TMDCD4R6ZVT27BPEHU', // TMNVLZGHJ75D01FR2D
-                    },
-                    { signal: controller.signal }
-                );
-
-                const mapPlayerData = (data) =>
-                    data.map(item => ({
-                        iid: item.iid,
-                        playerName: item.player_name,
-                        days: item.timestamp ? Math.floor((Date.now() / 1000 - item.timestamp) / (60 * 60 * 24)) : null,
-                        fleetPoints: shortenNumber(item.fleet_points) || null,
-                        icon: classIdToImage[item.class_id] || null,
-                    }));
-
+                setLoading(true);
+                const [topBoxResponse, eventBoxResponse] = await Promise.all([
+                    fetchTopBoxData(),
+                    fetchEventBoxData(),
+                ]);
 
                 setTopBoxData({
-                    topx_last_fleets: mapPlayerData(response.data.topx_last_fleets.content),
-                    topx_top_fleets: mapPlayerData(response.data.topx_top_fleets.content),
-                    topx_last_bunkers: mapPlayerData(response.data.topx_last_bunkers.content),
+                    topx_last_fleets: mapTopBoxPlayerData(topBoxResponse.data.topx_last_fleets.content),
+                    topx_top_fleets: mapTopBoxPlayerData(topBoxResponse.data.topx_top_fleets.content),
+                    topx_last_bunkers: mapTopBoxPlayerData(topBoxResponse.data.topx_last_bunkers.content),
+                });
+
+                setEventBoxData({
+                    last_galaxy_events: eventBoxResponse.data.bloc_last_galaxy_events.content,
+                    last_spy_events: eventBoxResponse.data.last_spy.content,
+                    last_spy_reports: eventBoxResponse.data.last_spy_reports.content,
                 });
             } catch (err) {
                 if (err.name === 'AbortError') {
@@ -92,7 +92,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="container home-container">
+            <div className="container top-container">
                 {/* New Section */}
                 <div className="box_1">
                     <img src={`/assets/titles/ptre_new_trans.png`} alt="Fleets Title" />
@@ -157,6 +157,77 @@ const Home = () => {
                     ) : (
                         <div className="player-row-data first-player-row-data">No data available</div>
                     )}
+                </div>
+            </div>
+            <div className="container events-container">
+                {/* Latest Galaxy Events */}
+                <div className="box_1">
+                    <div className="icon-title">
+                        <img src="/assets/ogame/mini/discoverer.png" alt="Sample Icon" className="section-icon" />
+                        <h3>Last galaxy events</h3>
+                    </div>
+                    <Link to="?page=galaxy_event_explorer" className="section-link">
+                        GALAXY EVENT EXPLORER
+                    </Link>
+                    <p className="section-description">Check galaxy updated as ingame</p>
+                    
+                    <table className="events-table">
+                        <thead>
+                            <tr>
+                                <th className='left'>Date</th>
+                                <th className='left'>Events</th>
+                                <th className='left'>Profile</th>
+                                <th>Coalition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {eventBoxData.last_galaxy_events.map((event, index) => (
+                                <GalaxyEventRow
+                                    key={index}
+                                    date={event.timestamp}
+                                    profileId={event.player_id}
+                                    action={event.action}
+                                    alliance={event.coa}
+                                    status={event.status}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {/* Latest Spy Events */}
+                <div className="box_1">
+                    <div className="icon-title">
+                        <img src="/assets/ogame/mini/general.png" alt="Sample Icon" className="section-icon" />
+                        <h3>Last Spy</h3>
+                    </div>
+                    <Link to="?page=last_spy" className="section-link">
+                        LAST SPY
+                    </Link>
+                    <p className="section-description">Who spied on your team</p>
+                    <table className="events-table">
+                        <thead>
+                            <tr>
+                                <th className='left'>Date</th>
+                                <th className='left'>Location</th>
+                                <th className='left'>Player</th>
+                                <th>Coalition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {eventBoxData.last_spy_events.map((event, index) => (
+                                <SpyEventRow
+                                    key={index}
+                                    date={event.timestamp}
+                                    profileId={event.player_id}
+                                    playerName={event.player_name}
+                                    coordGalaxy={event.coord_galaxy}
+                                    coordSystem={event.coord_system}
+                                    coordPosition={event.coord_position}
+                                    alliance={event.coa}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>
