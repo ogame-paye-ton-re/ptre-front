@@ -81,11 +81,6 @@ const Home = () => {
         return () => controller.abort();
     }, []);
 
-
-    if (loading) {
-        return <div className="loading">Loading...</div>;
-    }
-
     if (error) {
         return <ErrorComponent message={error} />;
     }
@@ -99,7 +94,9 @@ const Home = () => {
                     <div className="text-with-lines">
                         <span>Private</span>
                     </div>
-                    {topBoxData.topx_last_fleets.length > 0 ? (
+                    {loading ? (
+                        <div className="player-row-data first-player-row-data">Loading...</div>
+                    ) : topBoxData.topx_last_fleets.length > 0 ? (
                         topBoxData.topx_last_fleets.map((item, index) => (
                             <PlayerRow
                                 key={index}
@@ -121,7 +118,9 @@ const Home = () => {
                     <div className="text-with-lines">
                         <span>Private</span>
                     </div>
-                    {topBoxData.topx_top_fleets.length > 0 ? (
+                    {loading ? (
+                        <div className="player-row-data first-player-row-data">Loading...</div>
+                    ) : topBoxData.topx_top_fleets.length > 0 ? (
                         topBoxData.topx_top_fleets.map((item, index) => (
                             <PlayerRow
                                 key={index}
@@ -143,7 +142,9 @@ const Home = () => {
                     <div className="text-with-lines">
                         <span>Private</span>
                     </div>
-                    {topBoxData.topx_last_bunkers.length > 0 ? (
+                    {loading ? (
+                        <div className="player-row-data first-player-row-data">Loading...</div>
+                    ) : topBoxData.topx_last_bunkers.length > 0 ? (
                         topBoxData.topx_last_bunkers.map((item, index) => (
                             <PlayerRow
                                 key={index}
@@ -170,7 +171,7 @@ const Home = () => {
                         GALAXY EVENT EXPLORER
                     </Link>
                     <p className="section-description">Check galaxy updated as ingame</p>
-                    
+
                     <table className="events-table">
                         <thead>
                             <tr>
@@ -181,7 +182,9 @@ const Home = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {eventBoxData.last_galaxy_events.map((event, index) => (
+                            {loading ? (
+                                <tr><td colSpan={4}>Loading...</td></tr>
+                            ) : eventBoxData.last_galaxy_events.map((event, index) => (
                                 <GalaxyEventRow
                                     key={index}
                                     date={event.timestamp}
@@ -214,7 +217,9 @@ const Home = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {eventBoxData.last_spy_events.map((event, index) => (
+                            {loading ? (
+                                <tr><td colSpan={4}>Loading...</td></tr>
+                            ) : eventBoxData.last_spy_events.map((event, index) => (
                                 <SpyEventRow
                                     key={index}
                                     date={event.timestamp}

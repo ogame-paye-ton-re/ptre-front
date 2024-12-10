@@ -80,7 +80,8 @@ function PageContent({ teamKey }) {
 
   return (
     <main className="main-content">
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <Suspense>
         {renderPage()}
       </Suspense>
     </main>

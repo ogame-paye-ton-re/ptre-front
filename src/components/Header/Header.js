@@ -28,6 +28,7 @@ const Header = () => {
 
     return (
         <header className="header">
+            {/* First Navbar */}
             <div className="navbar">
                 <div className="container">
                     <div className="logo">
@@ -39,9 +40,9 @@ const Header = () => {
                         <ul>
                             {menuItems.map((item, i) => (
                                 <li key={`large-menu-item-${i}`}>
-                                    <Link 
-                                    to={item.url}
-                                    className={isActive(item.url) ? "active" : ""}>
+                                    <Link
+                                        to={item.url}
+                                        className={isActive(item.url) ? "active" : ""}>
                                         {item.name}
                                     </Link>
                                 </li>
@@ -65,7 +66,12 @@ const Header = () => {
                     </button>
                 </div>
             </div>
-
+            {/* Full-width Header Image */}
+            <div className="header-image">
+                <img src="https://placehold.co/1248x88/png" alt="Placeholder" className="full-width-image" />
+            </div>
+            {/* Second Navbar */}
+            
             <nav className={`small-screen-menu ${isMenuOpen ? 'open' : ''}`}>
                 <ul>
                     {Array.from({ length: 18 }, (_, i) => (
