@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# PTRE - Paye Ton RE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PTRE is an easy-to-use [tolerated tool](https://forum.origin.ogame.gameforge.com/forum/thread/37-ptre-spy-report-sharing-tool-over-discord-oglight-infinity/) to save and share spy reports for OGame browser game. You can save spy reports from:
+- Discord, by installing the [PTRE bot](https://discordapp.com/oauth2/authorize?&client_id=512294332058042388&scope=bot)
+- [OGLight script](https://openuserjs.org/scripts/nullNaN/OGLight), by installing the add-on into your browser
+- [OGame Infinity](https://ogameinfinity.com/)
+- [EasyPTRE](https://openuserjs.org/scripts/GeGe_GM/EasyPTRE) (https://github.com/ogame-paye-ton-re/easyptre)
+- Directly through the [PTRE website](https://ptre.chez.gg/)
 
-## Available Scripts
+Your spy reports will be shared only with your team mates. PTRE can also create an ingame activity profiles, manage and sort spy reports, and more...
 
-In the project directory, you can run:
+## Tolerated tool
 
-### `npm start`
+**PTRE is a Gameforge tolerated tool**. You may check official post here: [OGame Origin post](https://forum.origin.ogame.gameforge.com/forum/thread/37-ptre-spy-report-sharing-tool-over-discord-oglight-infinity-agr/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## One big step to Open Source!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Since December 2024, **PTRE frontend is being rebuilt as an Open Source projet**, via this repository. [iiNSick](https://github.com/Jbaukens) is leading the front redesign, while [GeGe](https://github.com/GeGeGM) is reworking backend. For now, endpoints used by ingame tools wont change (might be reworked later on).
 
-### `npm test`
+## Contribution
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If interested, you may contribute to EasyPTRE. You can also contact me here: [PTRE Discord server](https://discord.gg/WsJGC9G).
 
-### `npm run build`
+## Donation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Since November 2023, you may [donate to support PTRE](https://ko-fi.com/ptreforogame). Thanks.
