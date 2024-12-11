@@ -48,9 +48,13 @@ export const GalaxyEventRow = ({
             case 'new_colo':
                 return `${player_name} colonized a new planet at`;
             case 'new_moon':
-                return `${player_name} created a moon at`;
+                return `${player_name} got a moon at`;
+            case 'new_colo_and_moon':
+                return `${player_name} got a planet and moon at`;
             case 'left_colo':
                 return `${player_name} destroyed a planet at`;
+            case 'left_moon':
+                return `${player_name} lost a moon at`;
             case 'left_colo_and_moon':
                 return `${player_name} destroyed a planet and moon at`;
             default:

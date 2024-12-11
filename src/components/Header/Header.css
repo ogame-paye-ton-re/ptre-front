@@ -53,6 +53,10 @@
     gap: 10px;
 }
 
+.header-right .icon {
+    height: 25px;
+}
+
 .header-right .separator {
     background-color: rgb(43 44 44 / 1);
     width: 1px;
@@ -65,10 +69,6 @@
     padding: 5px;
     font-size: 14px;
     border-radius: 5px;
-}
-
-.icon {
-    height: 25px;
 }
 
 .menu-toggle {
@@ -198,6 +198,7 @@
     color: rgb(128 128 128 / 1);
     text-decoration: none;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .login-link:hover {

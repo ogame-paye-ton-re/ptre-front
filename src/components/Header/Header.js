@@ -1,14 +1,39 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { useTeam } from './../../context/TeamContext';
+import LoginModal from './../../components/Modals/LoginModal/LoginModal';
+
 import './Header.css';
 
 const Header = () => {
+    const { teamData } = useTeam();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState('join');
+    const [animationClass, setAnimationClass] = useState("");
     const location = useLocation();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const toggleModal = () => {
+        if (!isModalOpen) {
+            toggleTab("join")
+            setAnimationClass("fade-in");
+            setIsModalOpen(true);
+        } else {
+            setAnimationClass("fade-down");
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 250);
+        }
+    };
+
+    const toggleTab = (tabName) => {
+        setActiveTab(tabName);
     };
 
     const isActive = (url) => {
@@ -66,10 +91,25 @@ const Header = () => {
                             <img src="/assets/kofi-icon.png" alt="Ko-Fi" className="icon" />
                         </a>
                         <span className="separator"></span>
-                        <Link to="/?page=team" className="login-link">
-                            <img src="/assets/icons/user.webp" alt="Profile" className="icon profile-icon" />
-                            Login
-                        </Link>
+                        {teamData ? (
+                            <span className="login-link">
+                                <img
+                                    src="/assets/icons/user.webp"
+                                    alt="Profile"
+                                    className="icon profile-icon"
+                                />
+                                {teamData.teamName}
+                            </span>
+                        ) : (
+                            <span className="login-link" onClick={toggleModal}>
+                                <img
+                                    src="/assets/icons/user.webp"
+                                    alt="Profile"
+                                    className="icon profile-icon"
+                                />
+                                Login
+                            </span>
+                        )}
                     </div>
                     <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
                         ☰
@@ -108,6 +148,15 @@ const Header = () => {
                     ))}
                 </ul>
             </nav>
+
+            {/* Modal Dialog */}
+            <LoginModal
+                isModalOpen={isModalOpen}
+                toggleModal={toggleModal}
+                animationClass={animationClass}
+                activeTab={activeTab}
+                toggleTab={toggleTab}
+            />
         </header>
     );
 };

@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 import api from './../../../utils/api';
 import { mapTopBoxPlayerData, PlayerRow, GalaxyEventRow, SpyEventRow } from './../../../utils/ptre';
+import { useTeam } from './../../../context/TeamContext';
 
 
 import './Home.css';
 
 const Home = () => {
+    const { teamData } = useTeam();
+
     const [topBoxData, setTopBoxData] = useState({
         topx_last_fleets: [],
         topx_top_fleets: [],
@@ -23,23 +26,31 @@ const Home = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        if (!teamData?.teamKey) {
+            return;
+        }
+
         const controller = new AbortController();
 
         const fetchTopBoxData = async () => {
+            const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
+
             return api.post(
                 '/api.php?view=topx_box&country=fr&univers=256',
                 {
-                    team_key: 'TMDCD4R6ZVT27BPEHU', // TMNVLZGHJ75D01FR2D
+                    team_key: teamKeydWithoutDash,
                 },
                 { signal: controller.signal }
             );
         };
 
         const fetchEventBoxData = async () => {
+            const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
+
             return api.post(
                 '/api.php?view=main&country=fr&univers=256',
                 {
-                    team_key: 'TMDCD4R6ZVT27BPEHU',
+                    team_key: teamKeydWithoutDash,
                 },
                 { signal: controller.signal }
             );
@@ -79,7 +90,7 @@ const Home = () => {
         fetchData();
 
         return () => controller.abort();
-    }, []);
+    }, [teamData?.teamKey]);
 
     if (error) {
         return <ErrorComponent message={error} />;
