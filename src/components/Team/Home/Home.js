@@ -36,7 +36,7 @@ const Home = () => {
             const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
 
             return api.post(
-                '/api.php?view=topx_box&country=fr&univers=256',
+                `/api.php?view=topx_box&country=${teamData.defaultCountry}&univers=${teamData.defaultUnivers}`,
                 {
                     team_key: teamKeydWithoutDash,
                 },
@@ -48,7 +48,7 @@ const Home = () => {
             const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
 
             return api.post(
-                '/api.php?view=main&country=fr&univers=256',
+                `/api.php?view=main&country=${teamData.defaultCountry}&univers=${teamData.defaultUnivers}`,
                 {
                     team_key: teamKeydWithoutDash,
                 },
@@ -90,7 +90,7 @@ const Home = () => {
         fetchData();
 
         return () => controller.abort();
-    }, [teamData?.teamKey]);
+    }, [teamData?.teamKey, teamData?.defaultCountry, teamData?.defaultUnivers]);
 
     if (error) {
         return <ErrorComponent message={error} />;
