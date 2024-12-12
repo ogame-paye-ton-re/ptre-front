@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useTeam } from './../../../context/TeamContext';
+import { usePtre } from '../../../context/PtreContext';
 import api from './../../../utils/api';
 import './LoginModal.css';
 
 const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggleTab }) => {
-    const { setTeamData } = useTeam();
+    const { setTeamData } = usePtre();
 
     const [loginKey, setLoginKey] = useState("");
     const [teamName, setTeamName] = useState("");
@@ -41,7 +41,7 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
         }
     
         try {
-            const response = await api.post('/api.php?view=login', { team_key_login: loginKey });
+            const response = await api.post('/api.php?view=team_login', { team_key_login: loginKey });
     
             if (response.RESULT_CODE === 0) {
                 const loginStatus = response.data.login_status;
@@ -99,7 +99,7 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
         }
 
         try {
-            const response = await api.post('/api.php?view=create_team', { name: teamName });
+            const response = await api.post('/api.php?view=team_create', { name: teamName });
             console.log("Team created successfully:", response);
             toggleModal();
         } catch (error) {

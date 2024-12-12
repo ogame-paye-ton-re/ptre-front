@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { TeamProvider, useTeam } from './context/TeamContext';
+import { PtreProvider, useTeamData } from './context/PtreContext';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -16,7 +16,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <TeamProvider>
+        <PtreProvider>
           <div className="App">
             {/* Header */}
             <Header />
@@ -27,14 +27,14 @@ function App() {
             {/* Footer */}
             <Footer />
           </div>
-        </TeamProvider>
+        </PtreProvider>
       </Router>
     </HelmetProvider>
   );
 }
 
 function PageContent() {
-  const { teamData } = useTeam();
+  const teamData = useTeamData();
 
   const [currentPage, setCurrentPage] = useState(null);
   const location = useLocation();

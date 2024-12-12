@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 import api from './../../../utils/api';
 import { mapTopBoxPlayerData, PlayerRow, GalaxyEventRow, SpyEventRow } from './../../../utils/ptre';
-import { useTeam } from './../../../context/TeamContext';
+import { useTeamData, useUniverseMenuData } from '../../../context/PtreContext';
 
 
 import './Home.css';
 
 const Home = () => {
-    const { teamData } = useTeam();
+    const teamData = useTeamData();
+    const universeData = useUniverseMenuData();
 
     const [topBoxData, setTopBoxData] = useState({
         topx_last_fleets: [],
@@ -36,7 +37,7 @@ const Home = () => {
             const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
 
             return api.post(
-                `/api.php?view=topx_box&country=${teamData.defaultCountry}&univers=${teamData.defaultUnivers}`,
+                `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
                 {
                     team_key: teamKeydWithoutDash,
                 },
@@ -48,7 +49,7 @@ const Home = () => {
             const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
 
             return api.post(
-                `/api.php?view=main&country=${teamData.defaultCountry}&univers=${teamData.defaultUnivers}`,
+                `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
                 {
                     team_key: teamKeydWithoutDash,
                 },
@@ -90,7 +91,7 @@ const Home = () => {
         fetchData();
 
         return () => controller.abort();
-    }, [teamData?.teamKey, teamData?.defaultCountry, teamData?.defaultUnivers]);
+    }, [teamData?.teamKey, universeData?.community, universeData?.server]);
 
     if (error) {
         return <ErrorComponent message={error} />;

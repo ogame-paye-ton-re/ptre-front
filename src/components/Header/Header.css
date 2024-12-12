@@ -224,6 +224,84 @@
     height: 20px;
 }
 
+#filter-community-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    flex: 1; 
+    position: relative;
+    vertical-align: middle;
+}
+
+
+#filter-community-wrapper ul {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background: #39495e;
+    padding: 7px;
+    margin: 0;
+    border-radius: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    width: max-content;
+    overflow-y: auto;
+    height: 250px;
+}
+
+#filter-community-wrapper:hover ul {
+    display: none;
+}
+
+#filter-community-wrapper #filter-community {
+    background: #39495e;
+    padding: 7px 7px 6px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#filter-community-wrapper #filter-community.shake {
+    animation: shake 0.5s ease;
+}
+
+#filter-community:hover ul,
+#filter-community ul:hover {
+    display: block;
+}
+
+#filter-community ul li {
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #4a596f;
+    text-align: center;
+}
+
+#filter-community-wrapper ul li:first-child {
+    margin-top: 0;
+}
+
+#filter-community ul li:hover {
+    background-color: #52647d;
+}
+
+#filter-community-wrapper #server-select {
+    background-color: #00060d;
+    color: #fff;
+    border: 1px solid #081938;
+    width: 250px;
+    padding: 8px;
+}
+
+#filter-community-wrapper #server-select:disabled { 
+    opacity: 0.2;
+}
+
 @media (max-width: 768px) {
     .large-screen-menu, .navbar-left, .header-right {
         display: none;
@@ -237,4 +315,19 @@
         right: 0;
         width: 100%;
     }
+
+    #filter-community-wrapper {
+        flex: none;
+        width: 100%;
+    }
+}
+
+.shake-animation {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%, 75% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
 }

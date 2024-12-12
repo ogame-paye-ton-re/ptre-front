@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { useTeam } from './../../context/TeamContext';
+import api from './../../utils/api';
+
+import { useTeamData, usePtre, useUniverseMenuData } from '../../context/PtreContext';
 import LoginModal from './../../components/Modals/LoginModal/LoginModal';
 
 import './Header.css';
 
 const Header = () => {
-    const { teamData } = useTeam();
+    const teamData = useTeamData();
+    const universeData = useUniverseMenuData();
+    const { setUniverseMenuData } = usePtre();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('join');
+    const [communities, setCommunities] = useState([]);
     const [animationClass, setAnimationClass] = useState("");
     const location = useLocation();
+    const filterCommunityWrapperRef = useRef(null);
+    const filterCommunityRef = useRef(null);
+    const filterServerWrapperRef = useRef(null);
+    const serverSelectRef = useRef(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -42,6 +51,28 @@ const Header = () => {
         return currentPage === menuPage;
     };
 
+    const handleCommunityChange = (community) => {
+        setUniverseMenuData({
+            community: community,
+            server: community && communities[community] && communities[community].length > 0 ? String(communities[community][0].univers) : ""
+        });
+    };
+
+    const handleServerChange = (server) => {
+        setUniverseMenuData({
+            server: server
+        });
+    };
+
+    const shakeFilterCommunity = () => {
+        if (filterCommunityRef.current) {
+            filterCommunityRef.current.classList.add("shake-animation");
+            setTimeout(() => {
+                filterCommunityRef.current.classList.remove("shake-animation");
+            }, 500);
+        }
+    };
+
     const menuItems = [
         { name: 'Home', url: '/' },
         { name: 'Galaxy Event Explorer', url: '/?page=galaxy_event_explorer' },
@@ -50,6 +81,63 @@ const Header = () => {
         { name: 'Techs', url: '/?page=lifeforms_researchs' },
         { name: 'Public Reports', url: '/?page=public_spy_reports' }
     ];
+
+    useEffect(() => {
+        const handleWrapperClick = (event) => {
+            if (
+                serverSelectRef.current?.disabled &&
+                (!universeData?.community || universeData?.community === "world") &&
+                filterServerWrapperRef.current.contains(event.target)
+            ) {
+                shakeFilterCommunity();
+            }
+        };
+
+        const wrapper = filterCommunityWrapperRef.current;
+        if (wrapper) {
+            wrapper.addEventListener("click", handleWrapperClick);
+        }
+
+        return () => {
+            if (wrapper) {
+                wrapper.removeEventListener("click", handleWrapperClick);
+            }
+        };
+    }, [universeData?.community]);
+
+    useEffect(() => {
+        const fetchUniversesMenu = async () => {
+            try {
+                let response;
+                if (teamData.teamKey) {
+                    const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
+
+                    response = await api.post('/api.php?view=universes_menu', { team_key: teamKeydWithoutDash });
+                } else {
+                    response = await api.get('/api.php', { params: { view: 'universes_menu' } });
+                }
+
+                if (response.RESULT_CODE === 0) {
+                    const blocError = response.data.bloc_error;
+
+                    if (blocError === -1) {
+
+                    } else if (blocError === 0) {
+                        setCommunities(response.data.content)
+                    } else {
+                        console.error("Unexpected login status. Please try again.")
+                    }
+                } else {
+                    console.error("API call failed. Please try again later.")
+                }
+
+            } catch (err) {
+                console.error('Error fetching universes menu:', err);
+            }
+        };
+
+        fetchUniversesMenu();
+    }, [teamData.teamKey]);
 
     return (
         <header className="header">
@@ -63,10 +151,41 @@ const Header = () => {
                     </div>
 
                     <div className="navbar-left">
-                        <select className="designed-select">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
+
+                        <div id="filter-community-wrapper" ref={filterCommunityWrapperRef}>
+                            <div id="filter-community" ref={filterCommunityRef}>
+                                <img
+                                    style={{ height: '24px', display: 'block', margin: 'auto' }}
+                                    src={universeData?.community ? `/assets/flags/${universeData.community}.webp` : '/assets/flags/world.webp'}
+                                    alt=""
+                                />
+                                <ul>
+                                    {Object.keys(communities).map(languageCode => (
+                                        <li key={languageCode} onClick={() => handleCommunityChange(languageCode)}>
+                                            <img style={{ height: '24px' }} src={`/assets/flags/${languageCode}.webp`} alt={languageCode} />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div id="filter-server-wrapper" ref={filterServerWrapperRef}>
+                                <select
+                                    id="server-select"
+                                    value={universeData?.server || ""}
+                                    onChange={(e) => handleServerChange(e.target.value)}
+                                    ref={serverSelectRef}
+                                    disabled={!universeData?.community || false}
+                                    style={{ pointerEvents: universeData?.community ? "auto" : "none" }}
+                                >
+                                    <option value="" disabled>Select a server</option>
+                                    {universeData?.community && communities[universeData.community] &&
+                                        communities[universeData.community].map(server => (
+                                            <option key={server.univers} value={server.univers}>
+                                                {server.univers} - {server.label}
+                                            </option>
+                                        ))}
+                                </select>
+                            </div>
+                        </div>
                         <span className="separator"></span>
                         <div className="search-container">
                             <img src="/assets/icons/search.webp" alt="Search" className="search-icon" />
