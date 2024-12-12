@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import './Footer.css';
 
 const Footer = () => {
@@ -41,9 +43,9 @@ const Footer = () => {
                             <span className="c-1">{category.title}</span>
                             {category.links.map((link, linkIndex) => (
                                 <div key={`link-${index}-${linkIndex}`} className="footer-link">
-                                    <a href={link.href} title={link.text}>
+                                    <Link to={link.href} title={link.text}>
                                         {link.text}
-                                    </a>
+                                    </Link>
                                 </div>
                             ))}
                         </div>

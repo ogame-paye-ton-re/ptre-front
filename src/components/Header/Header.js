@@ -3,13 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 
 import api from './../../utils/api';
 
-import { useTeamData, usePtre, useUniverseMenuData } from '../../context/PtreContext';
+import { useCurrentTeam, usePtre, useUniverseMenuData } from '../../context/PtreContext';
 import LoginModal from './../../components/Modals/LoginModal/LoginModal';
 
 import './Header.css';
 
 const Header = () => {
-    const teamData = useTeamData();
+    const teamData = useCurrentTeam();
     const universeData = useUniverseMenuData();
     const { setUniverseMenuData } = usePtre();
 
@@ -148,10 +148,10 @@ const Header = () => {
                 setIsSticky(false);
             }
         };
-    
+
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
-    
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("resize", handleScroll);
@@ -230,14 +230,23 @@ const Header = () => {
                         </a>
                         <span className="separator"></span>
                         {teamData ? (
-                            <span className="login-link">
-                                <img
-                                    src="/assets/icons/user.webp"
-                                    alt="Profile"
-                                    className="icon profile-icon"
-                                />
-                                {teamData.teamName}
-                            </span>
+                            <>
+                                <span className="login-link">
+                                    <img
+                                        src="/assets/icons/user.webp"
+                                        alt="Profile"
+                                        className="icon profile-icon"
+                                    />
+                                    {teamData.teamName}
+                                </span>
+                                <div>
+                                    <span href="/" className="add-team-link" onClick={toggleModal}>
+                                        <div className="add-team-wrapper">
+                                            <span></span>
+                                        </div>
+                                    </span>
+                                </div>
+                            </>
                         ) : (
                             <span className="login-link" onClick={toggleModal}>
                                 <img

@@ -2,10 +2,12 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { PtreProvider, useTeamData } from './context/PtreContext';
+import { PtreProvider, useCurrentTeam } from './context/PtreContext';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+
+import ScrollToTop from './shared/ScrollToTop/ScrollToTop';
 import BackToTopButton from './shared/BackToTopButton/BackToTopButton';
 import './App.css';
 
@@ -16,6 +18,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
+        <ScrollToTop />
         <PtreProvider>
           <div className="App">
             {/* Header */}
@@ -35,7 +38,7 @@ function App() {
 }
 
 function PageContent() {
-  const teamData = useTeamData();
+  const teamData = useCurrentTeam();
 
   const [currentPage, setCurrentPage] = useState(null);
   const location = useLocation();
@@ -50,9 +53,6 @@ function PageContent() {
     currentPage === 'splash' || (!currentPage && !teamData);
 
   const renderPage = () => {
-    console.log('Rendering page:', currentPage);
-    console.log(location.pathname);
-
     if (isSplashPage()) {
       return <Splash />;
     }
@@ -61,7 +61,7 @@ function PageContent() {
       return <TeamDashboard />;
     }
 
-    return <div>Page not found</div>;
+    return <div className="container">Page not found</div>;
   };
 
   return (
