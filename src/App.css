@@ -10,7 +10,7 @@
   --text-color: #212529;
   --header-height: 60px;
   --font-family: 'RobotoRegular';
-  --header-height: 130px;
+  --header-height: 30px;
 }
 
 ::-webkit-scrollbar {
@@ -59,33 +59,29 @@ transition: background-color 5000s ease-in-out 0s;
   outline-offset: -2px;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
   background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: var(--text-color);
+  color: #f1f1f1;
   display: flex;
   flex-direction: column;
-  position: absolute;
   font-size: 14px;
-  left: 0;
-  right: 0;
   top: 0;
   bottom: 0;
-  padding-top: 45px;
-  color: #f1f1f1;
-  overflow: auto;
-  overflow-x: hidden;
+  left: 0;
+  right: 0;
   padding-top: 100px;
+  overflow-x: hidden;
+  overflow-y: auto; 
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  flex-grow: 1;
 }
 
 .main-content {

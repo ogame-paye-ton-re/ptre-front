@@ -249,7 +249,7 @@
     z-index: 10;
     width: max-content;
     overflow-y: auto;
-    height: 250px;
+    max-height: 250px;
 }
 
 #filter-community-wrapper:hover ul {

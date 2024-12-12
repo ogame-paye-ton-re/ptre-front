@@ -6,7 +6,7 @@ import { PtreProvider, useTeamData } from './context/PtreContext';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-
+import BackToTopButton from './shared/BackToTopButton/BackToTopButton';
 import './App.css';
 
 const Splash = lazy(() => import('./components/Splash/Splash'));
@@ -27,6 +27,7 @@ function App() {
             {/* Footer */}
             <Footer />
           </div>
+          <BackToTopButton />
         </PtreProvider>
       </Router>
     </HelmetProvider>
