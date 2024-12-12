@@ -1,20 +1,12 @@
 footer {
-    /* color: #fff;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    margin: 0 auto;
-    flex-wrap: wrap;
-    width: 100%;*/
     font-size: 14px;
     color: #485160;
-    /* background-image: url('/public/assets/ft_bg.webp');
-    background-position: center top;
-    padding-top: 100px;
-    background-size: cover;
-    background-repeat: no-repeat; */
-    background-color: #02030a;
+    background-color: rgb(0 0 0 / 1);
+    width: 100%;
+}
+
+footer {
+    margin-top: auto;
 }
 
 footer:before {
@@ -144,6 +136,17 @@ footer .statistics ul {
 @media (min-width: 768px) and (max-width: 999px) {
     #footer {
         padding-top: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    footer .container {
+        padding-left: 80px;
+    }
+
+    .footer-left,
+    .footer-right {
+        padding: 0 15px;
     }
 }
 

@@ -73,7 +73,6 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  padding-top: 100px;
   overflow-x: hidden;
   overflow-y: auto; 
 }
@@ -82,6 +81,12 @@ html, body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  /* min-height: 100vh; */
+}
+
+.app-layout {
+  flex: 1;
+  overflow: hidden;
 }
 
 .main-content {
@@ -90,7 +95,18 @@ html, body {
   width: 100%;
   background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
   background-size: cover;
-  padding-bottom: 20px;
+  padding-bottom: 120px;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .main-content .container {
@@ -166,11 +182,11 @@ a {
   text-decoration: underline;
 }
 
-.logo {
-  flex-shrink: 0;
-}
-
 @media (min-width: 768px) {
+  .content-wrapper {
+    padding-left: 80px;
+  }
+
   .container {
     flex-direction: row;
     gap: 50px;

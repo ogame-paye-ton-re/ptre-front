@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { PtreProvider, useCurrentTeam } from './context/PtreContext';
 
 import Header from './components/Header/Header';
+import LeftMenu from './components/LeftMenu/LeftMenu';
 import Footer from './components/Footer/Footer';
 
 import ScrollToTop from './shared/ScrollToTop/ScrollToTop';
@@ -25,7 +26,12 @@ function App() {
             <Header />
 
             {/* Main Content */}
-            <PageContent />
+            <div className="app-layout">
+              <LeftMenu /> {/* Left Menu */}
+              <div className="content-wrapper">
+                <PageContent /> {/* Main Content */}
+              </div>
+            </div>
 
             {/* Footer */}
             <Footer />

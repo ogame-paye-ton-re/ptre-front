@@ -108,55 +108,36 @@ const Header = () => {
 
     useEffect(() => {
         const fetchUniversesMenu = async () => {
-            try {
-                let response;
-                if (teamData?.teamKey) {
-                    const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
-
-                    response = await api.post('/api.php?view=universes_menu', { team_key: teamKeydWithoutDash });
-                } else {
-                    response = await api.get('/api.php', { view: 'universes_menu' });
-                }
-
-                if (response.RESULT_CODE === 0) {
-                    const blocError = response.data.bloc_error;
-
-                    if (blocError === -1) {
-
-                    } else if (blocError === 0) {
-                        setCommunities(response.data.content)
-                    } else {
-                        console.error("Unexpected login status. Please try again.")
-                    }
-                } else {
-                    console.error("API call failed. Please try again later.")
-                }
-
-            } catch (err) {
-                console.error('Error fetching universes menu:', err);
+          try {
+            const response = teamData?.teamKey
+              ? await api.post("/api.php?view=universes_menu", {
+                  team_key: teamData.teamKey.replace(/-/g, ""),
+                })
+              : await api.get("/api.php", { view: "universes_menu" });
+    
+            if (response.RESULT_CODE === 0 && response.data.bloc_error === 0) {
+              setCommunities(response.data.content);
+            } else {
+              console.error("Unexpected login status or API failure.");
             }
+          } catch (err) {
+            console.error("Error fetching universes menu:", err);
+          }
         };
-
         fetchUniversesMenu();
-    }, [teamData?.teamKey]);
+      }, [teamData?.teamKey]);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.innerWidth > 768) {
-                setIsSticky(window.scrollY > 158);
-            } else {
-                setIsSticky(false);
-            }
+          setIsSticky(window.scrollY > 170 && window.innerWidth > 768);
         };
-
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
-
         return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", handleScroll);
+          window.removeEventListener("scroll", handleScroll);
+          window.removeEventListener("resize", handleScroll);
         };
-    }, []);
+      }, []);
 
     return (
         <header className="header">
