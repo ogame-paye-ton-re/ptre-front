@@ -4,7 +4,7 @@ import api from './../../../utils/api';
 import './LoginModal.css';
 
 const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggleTab }) => {
-    const { setTeamData, setUniverseMenuData } = usePtre();
+    const { setTeamData, setUniverseMenuData, setCurrentTeam } = usePtre();
 
     const [loginKey, setLoginKey] = useState("");
     const [teamName, setTeamName] = useState("");
@@ -63,6 +63,7 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
                         defaultUnivers: response.data.default_univers,
                         defaultCountry: response.data.default_country,
                     });
+                    setCurrentTeam(response.data.team_id);
                     setLoginSuccess(true);
                     setSuccessMessage(`Successfully logged in to team ${response.data.team_name}`);
                     setTimeout(() => {

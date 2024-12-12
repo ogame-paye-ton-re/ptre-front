@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 import api from './../../../utils/api';
 import { mapTopBoxPlayerData, PlayerRow, GalaxyEventRow, SpyEventRow } from './../../../utils/ptre';
-import { useTeamData, useUniverseMenuData } from '../../../context/PtreContext';
+import { useCurrentTeam, useUniverseMenuData } from '../../../context/PtreContext';
 
 
 import './Home.css';
 
 const Home = () => {
-    const teamData = useTeamData();
+    const teamData = useCurrentTeam();
     const universeData = useUniverseMenuData();
 
     const [topBoxData, setTopBoxData] = useState({
