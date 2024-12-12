@@ -129,7 +129,7 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-          setIsSticky(window.scrollY > 170 && window.innerWidth > 768);
+          setIsSticky(window.scrollY > 180 && window.innerWidth > 768);
         };
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
