@@ -18,6 +18,7 @@ const Header = () => {
     const [activeTab, setActiveTab] = useState('join');
     const [communities, setCommunities] = useState([]);
     const [animationClass, setAnimationClass] = useState("");
+    const [isSticky, setIsSticky] = useState(false);
     const location = useLocation();
     const filterCommunityWrapperRef = useRef(null);
     const filterCommunityRef = useRef(null);
@@ -139,6 +140,24 @@ const Header = () => {
         fetchUniversesMenu();
     }, [teamData?.teamKey]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerWidth > 768) {
+                setIsSticky(window.scrollY > 158);
+            } else {
+                setIsSticky(false);
+            }
+        };
+    
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleScroll);
+    
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
+        };
+    }, []);
+
     return (
         <header className="header">
             {/* First Navbar */}
@@ -240,7 +259,7 @@ const Header = () => {
                 <img src="https://placehold.co/1248x88/png" alt="Placeholder" className="full-width-image" />
             </div>
             {/* Second Navbar */}
-            <div className="navbar navbar2">
+            <div className={`navbar navbar2 ${isSticky ? 'sticky' : ''}`}>
                 <div className="container">
                     <nav className="large-screen-menu">
                         <ul>
