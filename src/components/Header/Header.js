@@ -109,12 +109,12 @@ const Header = () => {
         const fetchUniversesMenu = async () => {
             try {
                 let response;
-                if (teamData.teamKey) {
+                if (teamData?.teamKey) {
                     const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
 
                     response = await api.post('/api.php?view=universes_menu', { team_key: teamKeydWithoutDash });
                 } else {
-                    response = await api.get('/api.php', { params: { view: 'universes_menu' } });
+                    response = await api.get('/api.php', { view: 'universes_menu' });
                 }
 
                 if (response.RESULT_CODE === 0) {
@@ -137,7 +137,7 @@ const Header = () => {
         };
 
         fetchUniversesMenu();
-    }, [teamData.teamKey]);
+    }, [teamData?.teamKey]);
 
     return (
         <header className="header">
