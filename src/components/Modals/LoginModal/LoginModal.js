@@ -4,7 +4,7 @@ import api from './../../../utils/api';
 import './LoginModal.css';
 
 const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggleTab }) => {
-    const { setTeamData } = usePtre();
+    const { setTeamData, setUniverseMenuData } = usePtre();
 
     const [loginKey, setLoginKey] = useState("");
     const [teamName, setTeamName] = useState("");
@@ -51,6 +51,10 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
                     setErrorMessage("Login failed: Incorrect team key.");
                 } else if (loginStatus === 1) {
                     console.log("Login successful:", response.data);
+                    setUniverseMenuData({
+                        community: response.data.default_country,
+                        server: response.data.default_univers,
+                    })
                     setTeamData({
                         teamKey: response.data.team_key,
                         adminKey: response.data.admin_key,
