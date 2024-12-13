@@ -6,6 +6,9 @@ import './Footer.css';
 const Footer = () => {
     return (
         <footer className="footer">
+            <div style={{ paddingLeft: '80px'}}>
+                <div className="footer-radius-bar"></div>
+            </div>
             <div className="container">
                 <div className="footer-left">
                     {[

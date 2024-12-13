@@ -129,7 +129,7 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-          setIsSticky(window.scrollY > 180 && window.innerWidth > 768);
+          setIsSticky(window.scrollY > 212 && window.innerWidth > 768);
         };
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
@@ -246,7 +246,7 @@ const Header = () => {
             </div>
             {/* Full-width Header Image */}
             <div className="header-image">
-                <img src="https://placehold.co/1248x88/png" alt="Placeholder" className="full-width-image" />
+                <img src="/assets/header-image.png" alt="Placeholder" className="full-width-image" />
             </div>
             {/* Second Navbar */}
             <div className={`navbar navbar2 ${isSticky ? 'sticky' : ''}`}>

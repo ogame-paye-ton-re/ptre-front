@@ -9,13 +9,24 @@ footer {
     margin-top: auto;
 }
 
-footer:before {
+/* footer:before {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.10);
     z-index: 1;
+} */
+
+footer .footer-radius-bar {
+    background-color: rgb(10 10 10 / 1);
+    border-bottom-left-radius: 32px;
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
 }
 
 footer .container {
@@ -171,6 +182,10 @@ footer .statistics ul {
     .footer-part-left-block {
         width: 20%;
         margin-bottom: 10px;
+    }
+
+    footer .footer-radius-bar {
+        display: none;
     }
 }
 
