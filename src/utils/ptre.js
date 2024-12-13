@@ -121,4 +121,3 @@ export const SpyEventRow = ({
         </tr>
     );
 };
-

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import LatestSpyReports from './../../../shared/LatestSpyReports/LatestSpyReports';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 import api from './../../../utils/api';
 import { mapTopBoxPlayerData, PlayerRow, GalaxyEventRow, SpyEventRow } from './../../../utils/ptre';
@@ -262,6 +263,8 @@ const Home = () => {
                     </table>
                 </div>
             </div>
+            {/* Latest Spy Reports */}
+            <LatestSpyReports spyReports={eventBoxData.last_spy_reports} />;
         </>
     );
 };
