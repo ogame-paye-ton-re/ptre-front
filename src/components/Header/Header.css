@@ -31,13 +31,11 @@
 }
 
 .navbar .add-team-link .add-team-wrapper span {
-    mask-image: url(https://assets-ng.maxroll.gg/images/home.svg?scope=mask);
-    -webkit-mask-image: url(https://assets-ng.maxroll.gg/images/home.svg?scope=mask);
-    width: 24px;
-    height: 24px;
-    max-width: none;
-    background-color: rgb(149 152 155 / 1)
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(149, 152, 155);
 }
+
 
 .navbar2 {
     position: relative;

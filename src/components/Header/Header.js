@@ -223,7 +223,7 @@ const Header = () => {
                                 <div>
                                     <span href="/" className="add-team-link" onClick={toggleModal}>
                                         <div className="add-team-wrapper">
-                                            <span></span>
+                                            <span>+</span>
                                         </div>
                                     </span>
                                 </div>
