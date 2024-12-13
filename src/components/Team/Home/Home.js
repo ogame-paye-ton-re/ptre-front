@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import LatestPlayers from './../../../shared/LatestPlayers/LatestPlayers';
 import LatestEvents from '../../../shared/LatestEvents/LatestEvents';
-import LatestSpyReports from './../../../shared/LatestSpyReports/LatestSpyReports';
+import SpyReportList from '../../../shared/SpyReportList/SpyReportList';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 
 import './Home.css';
@@ -13,7 +13,7 @@ const Home = () => {
     const components = [
         { Component: LatestPlayers, key: 'latest-players' },
         { Component: LatestEvents, key: 'latest-events' },
-        { Component: LatestSpyReports, key: 'latest-spy-reports' },
+        { Component: SpyReportList, key: 'spy-reports-list' },
     ];
 
     const renderComponents = () =>

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 
-import { formatWithThousandSeparator } from './../../utils/numbers';
-import { formatDate } from './../../utils/date';
-import api from './../../utils/api';
+import { formatWithThousandSeparator } from '../../utils/numbers';
+import { formatDate } from '../../utils/date';
+import api from '../../utils/api';
 
 import { useCurrentTeam, useUniverseMenuData } from '../../context/PtreContext';
 
-import './LatestSpyReports.css';
+import './SpyReportList.css';
 
-const LatestSpyReports = ({ setError }) => {
+const SpyReportList = ({ setError }) => {
     const teamData = useCurrentTeam();
     const universeData = useUniverseMenuData();
 
@@ -146,4 +146,4 @@ const LatestSpyReports = ({ setError }) => {
     );
 };
 
-export default LatestSpyReports;
+export default SpyReportList;
