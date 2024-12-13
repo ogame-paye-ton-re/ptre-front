@@ -7,6 +7,7 @@ import { PtreProvider, useCurrentTeam } from './context/PtreContext';
 import Header from './components/Header/Header';
 import LeftMenu from './components/LeftMenu/LeftMenu';
 import Footer from './components/Footer/Footer';
+import LoginModal from './components/Modals/LoginModal/LoginModal';
 
 import ScrollToTop from './shared/ScrollToTop/ScrollToTop';
 import BackToTopButton from './shared/BackToTopButton/BackToTopButton';
@@ -16,27 +17,55 @@ const Splash = lazy(() => import('./components/Splash/Splash'));
 const TeamDashboard = lazy(() => import('./components/Team/Home/Home'));
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('join');
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleModal = () => {
+    if (!isModalOpen) {
+      toggleTab("join")
+      setAnimationClass("fade-in");
+      setIsModalOpen(true);
+    } else {
+      setAnimationClass("fade-down");
+      setTimeout(() => {
+        setIsModalOpen(false);
+      }, 250);
+    }
+  };
+
+  const toggleTab = (tabName) => {
+    setActiveTab(tabName);
+  };
+
   return (
     <HelmetProvider>
       <Router>
         <ScrollToTop />
         <PtreProvider>
           <div className="App">
-            {/* Header */}
-            <Header />
+            <Header
+              toggleModal={toggleModal}
+            />
 
-            {/* Main Content */}
             <div className="app-layout">
-              <LeftMenu /> {/* Left Menu */}
+              <LeftMenu toggleModal={toggleModal} />
               <div className="content-wrapper">
-                <PageContent /> {/* Main Content */}
+                <PageContent />
               </div>
             </div>
 
-            {/* Footer */}
             <Footer />
           </div>
           <BackToTopButton />
+          {/* Modal Dialog */}
+          <LoginModal
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+            animationClass={animationClass}
+            activeTab={activeTab}
+            toggleTab={toggleTab}
+          />
         </PtreProvider>
       </Router>
     </HelmetProvider>

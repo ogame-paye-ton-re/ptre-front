@@ -195,18 +195,27 @@ const Home = () => {
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan={4}>Loading...</td></tr>
-                            ) : eventBoxData.last_galaxy_events.map((event, index) => (
-                                <GalaxyEventRow
-                                    key={index}
-                                    date={event.timestamp}
-                                    profileId={event.player_id}
-                                    action={event.action}
-                                    alliance={event.coa}
-                                    status={event.status}
-                                />
-                            ))}
+                                <tr>
+                                    <td colSpan={4}>Loading...</td>
+                                </tr>
+                            ) : eventBoxData.last_galaxy_events.length > 0 ? (
+                                eventBoxData.last_galaxy_events.map((event, index) => (
+                                    <GalaxyEventRow
+                                        key={index}
+                                        date={event.timestamp}
+                                        profileId={event.player_id}
+                                        action={event.action}
+                                        alliance={event.coa}
+                                        status={event.status}
+                                    />
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={4} className='center'>Not enough OGLight data. You need to install OGLight / Infinity / EasyPTRE.</td>
+                                </tr>
+                            )}
                         </tbody>
+
                     </table>
                 </div>
                 {/* Latest Spy Events */}
@@ -231,18 +240,24 @@ const Home = () => {
                         <tbody>
                             {loading ? (
                                 <tr><td colSpan={4}>Loading...</td></tr>
-                            ) : eventBoxData.last_spy_events.map((event, index) => (
-                                <SpyEventRow
-                                    key={index}
-                                    date={event.timestamp}
-                                    profileId={event.player_id}
-                                    playerName={event.player_name}
-                                    coordGalaxy={event.coord_galaxy}
-                                    coordSystem={event.coord_system}
-                                    coordPosition={event.coord_position}
-                                    alliance={event.coa}
-                                />
-                            ))}
+                            ) : eventBoxData.last_spy_events.length > 0 ? (
+                                eventBoxData.last_spy_events.map((event, index) => (
+                                    <SpyEventRow
+                                        key={index}
+                                        date={event.timestamp}
+                                        profileId={event.player_id}
+                                        playerName={event.player_name}
+                                        coordGalaxy={event.coord_galaxy}
+                                        coordSystem={event.coord_system}
+                                        coordPosition={event.coord_position}
+                                        alliance={event.coa}
+                                    />
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={4} className='center'>Not enough OGLight data. You need to install OGLight / Infinity / EasyPTRE.</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

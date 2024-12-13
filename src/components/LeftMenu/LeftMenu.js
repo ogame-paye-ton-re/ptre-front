@@ -4,7 +4,7 @@ import { useTeams, useCurrentTeam, usePtre } from '../../context/PtreContext';
 
 import './LeftMenu.css';
 
-const LeftMenu = () => {
+const LeftMenu = ({ toggleModal }) => {
   const teamsData = useTeams();
   const currentTeam = useCurrentTeam();
   const { setCurrentTeam } = usePtre();
@@ -15,10 +15,6 @@ const LeftMenu = () => {
 
   const getTeamInitials = (teamName) => {
     return teamName.substring(0, 2).toUpperCase();
-  };
-
-  const handleAddTeamClick = () => {
-    console.log('Add new team clicked');
   };
 
   return (
@@ -46,7 +42,7 @@ const LeftMenu = () => {
           );
         })}
         <hr className="team-divider" />
-        <li className="team-item add-team" onClick={handleAddTeamClick}>
+        <li className="team-item add-team" onClick={toggleModal}>
           <div className="team-icon add-team-icon">+</div>
         </li>
       </ul>

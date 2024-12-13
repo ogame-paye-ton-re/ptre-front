@@ -4,20 +4,16 @@ import { Link, useLocation } from "react-router-dom";
 import api from './../../utils/api';
 
 import { useCurrentTeam, usePtre, useUniverseMenuData } from '../../context/PtreContext';
-import LoginModal from './../../components/Modals/LoginModal/LoginModal';
 
 import './Header.css';
 
-const Header = () => {
+const Header = ({ toggleModal }) => {
     const teamData = useCurrentTeam();
     const universeData = useUniverseMenuData();
     const { setUniverseMenuData } = usePtre();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('join');
     const [communities, setCommunities] = useState([]);
-    const [animationClass, setAnimationClass] = useState("");
     const [isSticky, setIsSticky] = useState(false);
     const location = useLocation();
     const filterCommunityWrapperRef = useRef(null);
@@ -27,23 +23,6 @@ const Header = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-    };
-
-    const toggleModal = () => {
-        if (!isModalOpen) {
-            toggleTab("join")
-            setAnimationClass("fade-in");
-            setIsModalOpen(true);
-        } else {
-            setAnimationClass("fade-down");
-            setTimeout(() => {
-                setIsModalOpen(false);
-            }, 250);
-        }
-    };
-
-    const toggleTab = (tabName) => {
-        setActiveTab(tabName);
     };
 
     const isActive = (url) => {
@@ -108,36 +87,36 @@ const Header = () => {
 
     useEffect(() => {
         const fetchUniversesMenu = async () => {
-          try {
-            const response = teamData?.teamKey
-              ? await api.post("/api.php?view=universes_menu", {
-                  team_key: teamData.teamKey.replace(/-/g, ""),
-                })
-              : await api.get("/api.php", { view: "universes_menu" });
-    
-            if (response.RESULT_CODE === 0 && response.data.bloc_error === 0) {
-              setCommunities(response.data.content);
-            } else {
-              console.error("Unexpected login status or API failure.");
+            try {
+                const response = teamData?.teamKey
+                    ? await api.post("/api.php?view=universes_menu", {
+                        team_key: teamData.teamKey.replace(/-/g, ""),
+                    })
+                    : await api.get("/api.php", { view: "universes_menu" });
+
+                if (response.RESULT_CODE === 0 && response.data.bloc_error === 0) {
+                    setCommunities(response.data.content);
+                } else {
+                    console.error("Unexpected login status or API failure.");
+                }
+            } catch (err) {
+                console.error("Error fetching universes menu:", err);
             }
-          } catch (err) {
-            console.error("Error fetching universes menu:", err);
-          }
         };
         fetchUniversesMenu();
-      }, [teamData?.teamKey]);
+    }, [teamData?.teamKey]);
 
     useEffect(() => {
         const handleScroll = () => {
-          setIsSticky(window.scrollY > 212 && window.innerWidth > 768);
+            setIsSticky(window.scrollY > 212 && window.innerWidth > 768);
         };
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
         return () => {
-          window.removeEventListener("scroll", handleScroll);
-          window.removeEventListener("resize", handleScroll);
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
         };
-      }, []);
+    }, []);
 
     return (
         <header className="header">
@@ -276,15 +255,6 @@ const Header = () => {
                     ))}
                 </ul>
             </nav>
-
-            {/* Modal Dialog */}
-            <LoginModal
-                isModalOpen={isModalOpen}
-                toggleModal={toggleModal}
-                animationClass={animationClass}
-                activeTab={activeTab}
-                toggleTab={toggleTab}
-            />
         </header>
     );
 };

@@ -5,7 +5,8 @@
     align-items: stretch;
 }
 
-.top-container .box_1, .events-container .box_1 {
+.top-container .box_1,
+.events-container .box_1 {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -18,7 +19,7 @@
 }
 
 .top-container .box_1 img {
-    width: 60%;
+    /* width: 60%; */
     height: 50px;
     margin-top: 5px;
 }
@@ -154,13 +155,14 @@
         grid-template-columns: 1fr;
     }
 
-    .top-container .box_1, .events-container .box_1 {
+    .top-container .box_1,
+    .events-container .box_1 {
         flex: 1 1 100%;
     }
 
     .top-container .box_1 img {
         height: 60px;
-        width: 45%;
+        /* width: 45%; */
     }
 
     .top-container .text-with-lines {
