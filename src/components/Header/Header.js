@@ -53,14 +53,22 @@ const Header = ({ toggleModal }) => {
         }
     };
 
-    const menuItems = [
+    const baseMenuItems = [
         { name: 'Home', url: '/' },
         { name: 'Galaxy Event Explorer', url: '/?page=galaxy_event_explorer' },
         { name: 'Position Finder', url: '/?page=position_8_finder' },
         { name: 'SS Finder', url: '/?page=empty_system_finder' },
         { name: 'Techs', url: '/?page=lifeforms_researchs' },
-        { name: 'Public Reports', url: '/?page=public_spy_reports' }
+        { name: 'Public Reports', url: '/?page=public_spy_reports' },
     ];
+
+    const additionalMenuItems = teamData
+        ? [
+            { name: 'Target list', url: '/?page=players_list' },
+        ]
+        : [];
+
+    const menuItems = [...baseMenuItems, ...additionalMenuItems];
 
     useEffect(() => {
         const handleWrapperClick = (event) => {

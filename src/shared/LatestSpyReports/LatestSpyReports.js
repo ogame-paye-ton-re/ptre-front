@@ -18,8 +18,8 @@ const LatestSpyReports = ({ spyReports }) => {
 
                             <div key={index} className="spy-report-card">
                                 <div className="report-meta">
-                                    <span className={`report-visibility ${report.public ? 'public' : 'private'}`}>
-                                        {report.public ? 'Public' : 'Private'}
+                                    <span className={`report-visibility ${report.private ? 'private' : 'public'}`}>
+                                        {report.private ? 'Private' : 'Public'}
                                     </span>
                                     <span className="report-date">
                                         {formatDate(report.event_timestamp, 'long')}

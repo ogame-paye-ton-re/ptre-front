@@ -63,7 +63,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
-  background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
+  /*background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;*/
+  background-color: #0a0a0a;
   background-size: cover;
   color: #f1f1f1;
   display: flex;
@@ -93,7 +94,8 @@ html, body {
   flex: 1;
   padding-top: var(--header-height);
   width: 100%;
-  background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
+  /* background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed; */
+  background-color: #0a0a0a;
   background-size: cover;
   padding-bottom: 120px;
 }
