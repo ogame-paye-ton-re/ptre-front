@@ -15,7 +15,7 @@ const LatestSpyReports = ({ spyReports }) => {
                 <div className="spy-report-cards">
                     {spyReports.length > 0 ? (
                         spyReports.map((report, index) => (
-                            
+
                             <div key={index} className="spy-report-card">
                                 <div className="report-meta">
                                     <span className={`report-visibility ${report.public ? 'public' : 'private'}`}>
@@ -30,8 +30,10 @@ const LatestSpyReports = ({ spyReports }) => {
                                     <div className="report-player">
                                         <i className="icon-player fas fa-user"></i>
                                         <span>
-                                            {report.player_name} (IG: {report.player_alias}) 
+                                            {report.player_name}
+                                            {report.player_alias && report.player_alias !== report.player_name && ` (${report.player_alias})`}
                                         </span>
+
                                     </div>
                                     <div className="report-location">
                                         <i className={`icon-location fas ${report.type_position === "3" ? 'fa-moon' : 'fa-globe'}`}></i>
@@ -63,8 +65,18 @@ const LatestSpyReports = ({ spyReports }) => {
                                     <div className="report-technology">
                                         <i className="icon-tech fas fa-cogs"></i>
                                         <span>
-                                            {report.technos_detected ? 'Technology Available' : 'No Technology Available'}
+                                            {report.technos_detected ? (
+                                                <>
+                                                    Technology Available <span style={{ color: 'green', fontSize: '1.2rem' }}>✔</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    No Technology Available <span style={{ color: 'red', fontSize: '1rem' }}>✘</span>
+                                                </>
+                                            )}
                                         </span>
+
+
                                     </div>
                                 </div>
                                 <div className="report-footer">
