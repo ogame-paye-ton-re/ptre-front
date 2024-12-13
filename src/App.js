@@ -15,6 +15,7 @@ import './App.css';
 
 const Splash = lazy(() => import('./components/Splash/Splash'));
 const TeamDashboard = lazy(() => import('./components/Team/Home/Home'));
+const TeamTargetList = lazy(() => import('./components/Team/TargetList/TargetList'));
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -92,8 +93,14 @@ function PageContent() {
       return <Splash />;
     }
 
-    if (!currentPage && teamData) {
-      return <TeamDashboard />;
+    if (teamData) {
+      if (currentPage === 'players_list') {
+        return <TeamTargetList />;
+      }
+      
+      if (!currentPage) {
+        return <TeamDashboard />;
+      }
     }
 
     return <div className="container">Page not found</div>;

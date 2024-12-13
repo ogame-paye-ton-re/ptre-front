@@ -1,10 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 import { formatWithThousandSeparator } from './../../utils/numbers';
 import { formatDate } from './../../utils/date';
+import api from './../../utils/api';
+
+import { useCurrentTeam, useUniverseMenuData } from '../../context/PtreContext';
+
 import './LatestSpyReports.css';
 
-const LatestSpyReports = ({ spyReports }) => {
+const LatestSpyReports = ({ setError }) => {
+    const teamData = useCurrentTeam();
+    const universeData = useUniverseMenuData();
+
+    const [spyReports, setSpyReports] = useState([]);
+    
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (!teamData?.teamKey) {
+            return;
+        }
+
+        const controller = new AbortController();
+
+        const fetchEventBoxData = async () => {
+            const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
+
+            return api.post(
+                `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
+                {
+                    team_key: teamKeydWithoutDash,
+                },
+                { signal: controller.signal }
+            );
+        };
+
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const eventBoxResponse = await fetchEventBoxData();
+                setSpyReports(eventBoxResponse.data.last_spy_reports.content)
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    console.log('Request canceled');
+                } else {
+                    console.error(err);
+                    setError(err.message || 'Failed to fetch data');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
+        return () => controller.abort();
+    }, [teamData?.teamKey, universeData?.community, universeData?.server, setError]);
+
     return (
         <div className="container" style={{ marginTop: '10px' }}>
             <div className="box_1">
