@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 import { formatWithThousandSeparator } from '../../utils/numbers';
 import { formatDate } from '../../utils/date';
 import api from '../../utils/api';
@@ -14,7 +13,6 @@ const SpyReportList = ({ setError }) => {
     const universeData = useUniverseMenuData();
 
     const [spyReports, setSpyReports] = useState([]);
-    
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -25,12 +23,12 @@ const SpyReportList = ({ setError }) => {
         const controller = new AbortController();
 
         const fetchEventBoxData = async () => {
-            const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
+            const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
 
             return api.post(
                 `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
                 {
-                    team_key: teamKeydWithoutDash,
+                    team_key: teamKeyWithoutDash,
                 },
                 { signal: controller.signal }
             );
@@ -40,7 +38,7 @@ const SpyReportList = ({ setError }) => {
             try {
                 setLoading(true);
                 const eventBoxResponse = await fetchEventBoxData();
-                setSpyReports(eventBoxResponse.data.last_spy_reports.content)
+                setSpyReports(eventBoxResponse.data.last_spy_reports.content);
             } catch (err) {
                 if (err.name === 'AbortError') {
                     console.log('Request canceled');
@@ -66,9 +64,10 @@ const SpyReportList = ({ setError }) => {
                     <h3>Last 10 Reports (Fleets)</h3>
                 </div>
                 <div className="spy-report-cards">
-                    {spyReports.length > 0 ? (
+                    {loading ? (
+                        <div className="loading-indicator">Loading...</div>
+                    ) : spyReports.length > 0 ? (
                         spyReports.map((report, index) => (
-
                             <div key={index} className="spy-report-card">
                                 <div className="report-meta">
                                     <span className={`report-visibility ${report.private ? 'private' : 'public'}`}>
@@ -77,41 +76,46 @@ const SpyReportList = ({ setError }) => {
                                     <span className="report-date">
                                         {formatDate(report.event_timestamp, 'long')}
                                     </span>
-                                    <span className="report-server">{report.country}-{report.universe}</span>
+                                    <span className="report-server">
+                                        {report.country}-{report.universe}
+                                    </span>
                                 </div>
                                 <div className="report-body">
                                     <div className="report-player">
                                         <i className="icon-player fas fa-user"></i>
                                         <span>
                                             {report.player_name}
-                                            {report.player_alias && report.player_alias !== report.player_name && ` (${report.player_alias})`}
+                                            {report.player_alias &&
+                                                report.player_alias !== report.player_name &&
+                                                ` (${report.player_alias})`}
                                         </span>
-
                                     </div>
                                     <div className="report-location">
-                                        <i className={`icon-location fas ${report.type_position === "3" ? 'fa-moon' : 'fa-globe'}`}></i>
-                                        <span>{report.coord_galaxy}:{report.coord_system}:{report.coord_position}</span>
-                                        <span>{report.type_position === "3" ? 'Moon' : 'Planet'}</span>
+                                        <i className={`icon-location fas ${report.type_position === '3' ? 'fa-moon' : 'fa-globe'}`}></i>
+                                        <span>
+                                            {report.coord_galaxy}:{report.coord_system}:{report.coord_position}
+                                        </span>
+                                        <span>{report.type_position === '3' ? 'Moon' : 'Planet'}</span>
                                     </div>
                                     <div className="report-stats">
                                         <div>
                                             <i className="icon-ships fas fa-rocket"></i>
-                                            <span>{formatWithThousandSeparator(report.ship_count.toLocaleString())}</span>
+                                            <span>{formatWithThousandSeparator(report.ship_count)}</span>
                                             <span>ships</span>
                                         </div>
                                         <div>
                                             <i className="icon-fleet fas fa-fighter-jet"></i>
-                                            <span>{formatWithThousandSeparator(report.fleet_points.toLocaleString())}</span>
+                                            <span>{formatWithThousandSeparator(report.fleet_points)}</span>
                                             <span>fleet points</span>
                                         </div>
                                         <div>
                                             <i className="icon-defense fas fa-shield-alt"></i>
-                                            <span>{formatWithThousandSeparator(report.def_points.toLocaleString())}</span>
+                                            <span>{formatWithThousandSeparator(report.def_points)}</span>
                                             <span>def points</span>
                                         </div>
                                         <div>
                                             <i className="icon-resources fas fa-box"></i>
-                                            <span>{formatWithThousandSeparator(report.resources.toLocaleString())}</span>
+                                            <span>{formatWithThousandSeparator(report.resources)}</span>
                                             <span>resources</span>
                                         </div>
                                     </div>
@@ -120,16 +124,16 @@ const SpyReportList = ({ setError }) => {
                                         <span>
                                             {report.technos_detected ? (
                                                 <>
-                                                    Technology Available <span style={{ color: 'green', fontSize: '1.2rem' }}>✔</span>
+                                                    Technology Available{' '}
+                                                    <span style={{ color: 'green', fontSize: '1.2rem' }}>✔</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    No Technology Available <span style={{ color: 'red', fontSize: '1rem' }}>✘</span>
+                                                    No Technology Available{' '}
+                                                    <span style={{ color: 'red', fontSize: '1rem' }}>✘</span>
                                                 </>
                                             )}
                                         </span>
-
-
                                     </div>
                                 </div>
                                 <div className="report-footer">
