@@ -371,6 +371,10 @@
         padding-left: 80px;
     }
 
+    header .header-image {
+        padding-left: 80px;
+    }
+
     .navbar-left,
     .header-right {
         padding: 0 15px;
