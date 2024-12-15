@@ -19,50 +19,51 @@ const LatestEvents = ({ setError }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const controller = new AbortController();
+    
+        const fetchEventBoxData = async () => {
             if (!teamData?.teamKey) {
-                return;
-            }
-    
-            const controller = new AbortController();
-    
-            const fetchEventBoxData = async () => {
-                const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
-    
-                return api.post(
+                return api.get(
                     `/api.php?view=last_events&country=${universeData.community}&univers=${universeData.server}`,
-                    {
-                        team_key: teamKeydWithoutDash,
-                    },
                     { signal: controller.signal }
                 );
-            };
+            }
     
-            const fetchData = async () => {
-                try {
-                    setLoading(true);
+            const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
+            return api.post(
+                `/api.php?view=last_events&country=${universeData.community}&univers=${universeData.server}`,
+                { team_key: teamKeyWithoutDash },
+                { signal: controller.signal }
+            );
+        };
     
-                    const eventBoxResponse = await fetchEventBoxData();
+        const fetchData = async () => {
+            try {
+                setLoading(true);
     
-                    setEventBoxData({
-                        last_galaxy_events: eventBoxResponse.data.bloc_last_galaxy_events.content,
-                        last_spy_events: eventBoxResponse.data.last_spy.content,
-                    });
-                } catch (err) {
-                    if (err.name === 'AbortError') {
-                        console.log('Request canceled');
-                    } else {
-                        console.error(err);
-                        setError(err.message || 'Failed to fetch data');
-                    }
-                } finally {
-                    setLoading(false);
+                const response = await fetchEventBoxData();
+    
+                setEventBoxData({
+                    last_galaxy_events: response.data.bloc_last_galaxy_events.content,
+                    last_spy_events: response.data.last_spy.content,
+                });
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    console.log('Request canceled');
+                } else {
+                    console.error(err);
+                    setError(err.message || 'Failed to fetch data');
                 }
-            };
+            } finally {
+                setLoading(false);
+            }
+        };
     
-            fetchData();
+        fetchData();
     
-            return () => controller.abort();
-        }, [teamData?.teamKey, universeData?.community, universeData?.server, setError]);
+        return () => controller.abort();
+    }, [teamData?.teamKey, universeData?.community, universeData?.server, setError]);
+    
 
     return (
         <div className="container events-container">

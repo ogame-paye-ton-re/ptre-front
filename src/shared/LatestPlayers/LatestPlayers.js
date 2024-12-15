@@ -20,29 +20,33 @@ const LatestPlayers = ({ setError }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!teamData?.teamKey) {
-            return;
-        }
-
         const controller = new AbortController();
-
+    
         const fetchTopBoxData = async () => {
-            const teamKeydWithoutDash = teamData.teamKey.replace(/-/g, '');
-
             try {
                 setLoading(true);
-                const topBoxResponse = await api.post(
-                    `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
-                    {
-                        team_key: teamKeydWithoutDash,
-                    },
-                    { signal: controller.signal }
-                );
-
+    
+                let response;
+    
+                if (!teamData?.teamKey) {
+                    response = await api.get(
+                        `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
+                        { signal: controller.signal }
+                    );
+                } else {
+                    const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
+                    response = await api.post(
+                        `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
+                        { team_key: teamKeyWithoutDash },
+                        { signal: controller.signal }
+                    );
+                }
+    
+                const { topx_last_fleets, topx_top_fleets, topx_last_bunkers } = response.data;
                 setTopBoxData({
-                    latestFleets: mapTopBoxPlayerData(topBoxResponse.data.topx_last_fleets.content),
-                    topFleets: mapTopBoxPlayerData(topBoxResponse.data.topx_top_fleets.content),
-                    latestBunkers: mapTopBoxPlayerData(topBoxResponse.data.topx_last_bunkers.content),
+                    latestFleets: mapTopBoxPlayerData(topx_last_fleets.content),
+                    topFleets: mapTopBoxPlayerData(topx_top_fleets.content),
+                    latestBunkers: mapTopBoxPlayerData(topx_last_bunkers.content),
                 });
             } catch (err) {
                 if (err.name === 'AbortError') {
@@ -55,13 +59,12 @@ const LatestPlayers = ({ setError }) => {
                 setLoading(false);
             }
         };
-
+    
         fetchTopBoxData();
-
+    
         return () => controller.abort();
     }, [teamData?.teamKey, universeData?.community, universeData?.server, setError]);
-
-
+    
     return (
         <div className="container top-container">
             {/* New Section */}

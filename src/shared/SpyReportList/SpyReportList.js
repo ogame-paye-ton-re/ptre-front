@@ -16,29 +16,30 @@ const SpyReportList = ({ setError }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!teamData?.teamKey) {
-            return;
-        }
-
         const controller = new AbortController();
-
+    
         const fetchEventBoxData = async () => {
+            if (!teamData?.teamKey) {
+                return api.get(
+                    `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
+                    { signal: controller.signal }
+                );
+            }
+    
             const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
-
             return api.post(
                 `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
-                {
-                    team_key: teamKeyWithoutDash,
-                },
+                { team_key: teamKeyWithoutDash },
                 { signal: controller.signal }
             );
         };
-
+    
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const eventBoxResponse = await fetchEventBoxData();
-                setSpyReports(eventBoxResponse.data.last_spy_reports.content);
+    
+                const response = await fetchEventBoxData();
+                setSpyReports(response.data.last_spy_reports.content);
             } catch (err) {
                 if (err.name === 'AbortError') {
                     console.log('Request canceled');
@@ -50,12 +51,12 @@ const SpyReportList = ({ setError }) => {
                 setLoading(false);
             }
         };
-
+    
         fetchData();
-
+    
         return () => controller.abort();
     }, [teamData?.teamKey, universeData?.community, universeData?.server, setError]);
-
+    
     return (
         <div className="container" style={{ marginTop: '10px' }}>
             <div className="box_1">

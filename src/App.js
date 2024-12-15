@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { PtreProvider, useCurrentTeam } from './context/PtreContext';
+import { PtreProvider, useCurrentTeam, useUniverseMenuData } from './context/PtreContext';
 
 import Header from './components/Header/Header';
 import LeftMenu from './components/LeftMenu/LeftMenu';
@@ -75,6 +75,7 @@ function App() {
 
 function PageContent() {
   const teamData = useCurrentTeam();
+  const universeData = useUniverseMenuData();
 
   const [currentPage, setCurrentPage] = useState(null);
   const location = useLocation();
@@ -86,20 +87,26 @@ function PageContent() {
   }, [location]);
 
   const isSplashPage = () =>
-    currentPage === 'splash' || (!currentPage && !teamData);
+    currentPage === 'splash' || (!currentPage && !teamData && !universeData);
+
+  const isTeamDashboardPage = () =>
+    !currentPage && (teamData || universeData);
 
   const renderPage = () => {
     if (isSplashPage()) {
       return <Splash />;
     }
 
-    if (teamData) {
-      if (currentPage === 'players_list') {
-        return <TeamTargetList />;
-      }
-      
-      if (!currentPage) {
-        return <TeamDashboard />;
+    if (isTeamDashboardPage()) {
+      return <TeamDashboard />;
+    }
+
+    if (teamData && universeData) {
+      switch (currentPage) {
+        case 'players_list':
+          return <TeamTargetList />;
+        default:
+          return <TeamDashboard />;
       }
     }
 
