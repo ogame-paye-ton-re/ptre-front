@@ -57,6 +57,7 @@
     height: 3.5rem;
     display: flex;
     text-align: center;
+    cursor: pointer;
 }
 
 .team-link:hover {

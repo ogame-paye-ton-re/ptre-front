@@ -5,8 +5,6 @@ import LatestEvents from '../../../shared/LatestEvents/LatestEvents';
 import SpyReportList from '../../../shared/SpyReportList/SpyReportList';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 
-import './Home.css';
-
 const Home = () => {
     const [error, setError] = useState(null);
 

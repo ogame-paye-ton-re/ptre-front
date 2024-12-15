@@ -184,6 +184,49 @@ a {
   text-decoration: underline;
 }
 
+.icon-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.icon-title img.section-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.icon-title h3 {
+  font-size: 24px;
+  margin: 0;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.section-link {
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.section-description {
+  font-size: 14px;
+  color: gray;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .icon-title img.section-icon {
+      width: 25px;
+      height: 25px;
+  }
+
+  .section-description {
+      font-size: 12px;
+  }
+}
+
 @media (min-width: 768px) {
   .content-wrapper {
     padding-left: 80px;

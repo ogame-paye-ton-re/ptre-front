@@ -1,0 +1,57 @@
+.team-targets {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.targets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    min-width: 800px;
+}
+
+.targets-table th,
+.targets-table td {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 5px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.targets-table th {
+    background-color: #02030a;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    position: relative;
+}
+
+.targets-table tbody tr:nth-child(odd) {
+    background-color: #0b0b0b;
+}
+
+.targets-table tbody tr:nth-child(even) {
+    background-color: #12171C;
+}
+
+.targets-table td:last-child, .targets-table th:last-child {
+    text-align: center;
+}
+
+.btn-add-target {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* .btn-add-target:hover {
+    background-color: #0056b3;
+} */
+
+.box_1 {
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

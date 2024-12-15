@@ -29,15 +29,14 @@ const LeftMenu = ({ toggleModal }) => {
           const isActive = team.teamId === currentTeam.teamId;
           return (
             <li key={team.teamId} className="team-item">
-              <Link 
-                to={team.link} 
+              <span 
                 className={`team-link ${isActive ? 'active' : ''}`}
                 onClick={() => handleTeamClick(team.teamId)}
               >
                 <div className={`team-icon ${isActive ? 'active' : ''}`}>
                   {getTeamInitials(team.teamName)}
                 </div>
-              </Link>
+              </span>
             </li>
           );
         })}

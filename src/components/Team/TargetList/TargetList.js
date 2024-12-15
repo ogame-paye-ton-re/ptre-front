@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import LatestPlayers from './../../../shared/LatestPlayers/LatestPlayers';
+import TeamTargets from './../../../shared/TeamTargets/TeamTargets';
 import ErrorComponent from './../../../shared/ErrorComponent/ErrorComponent'
 
 
@@ -17,6 +18,8 @@ const TargetList = () => {
         <>
             {/* Top block */}
             <LatestPlayers setError={setError} />
+            {/* Target List block */}
+            <TeamTargets setError={setError} />
         </>
     );
 };
