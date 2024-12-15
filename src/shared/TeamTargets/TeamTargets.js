@@ -153,12 +153,12 @@ const TeamTargets = () => {
                                         <td>{target.alliance || 'N/A'}</td>
                                         <td>{formatWithThousandSeparator(target.fleet_points)}</td>
                                         <td>{formatWithThousandSeparator(target.ship_count)}</td>
-                                        <td style={{ color: renderLastSpyColor(target.event_timestamp) }}>
-                                            {formatDate(target.event_timestamp, 'long') || 'N/A'}
+                                        <td style={{ color: renderLastSpyColor(target?.event_timestamp) }}>
+                                            {target.event_timestamp ? formatDate(target.event_timestamp, 'long') : 'N/A'}
                                         </td>
 
                                         <td style={{ color: renderActivityColor(target.activity_last_event_timestamp) }}>
-                                            {formatDate(target.activity_last_event_timestamp, 'dateOnly') || 'N/A'}
+                                            {target.activity_last_event_timestamp !== 0 ? formatDate(target.activity_last_event_timestamp, 'dateOnly') : 'N/A'}
                                         </td>
                                         <td>{target.activity_team_count} ({target.activity_coa_count})</td>
                                         <td>
