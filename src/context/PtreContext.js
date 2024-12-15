@@ -5,20 +5,8 @@ const PtreContext = createContext();
 export const PtreProvider = ({ children }) => {
     const [ptreData, setPtreData] = useState(() => {
         const storedData = localStorage.getItem('ptreData');
-        return storedData ? JSON.parse(storedData) : { teams: [], universes: {}, currentTeamId: null };
+        return storedData ? JSON.parse(storedData) : { teams: null, universes: null, currentTeamId: null };
     });
-
-    const setTeamData = (newTeam) => {
-        setPtreData((prevData) => {
-            const updatedTeams = prevData.teams.map((team) =>
-                team.teamId === newTeam.teamId ? { ...team, ...newTeam } : team
-            );
-            if (!updatedTeams.some((team) => team.teamId === newTeam.teamId)) {
-                updatedTeams.push(newTeam);
-            }
-            return { ...prevData, teams: updatedTeams };
-        });
-    };
 
     const setCurrentTeam = (teamId) => {
         setPtreData((prevData) => {
@@ -38,6 +26,21 @@ export const PtreProvider = ({ children }) => {
         });
     };
 
+    const setTeamData = (newTeam) => {
+        setPtreData((prevData) => {
+            const teams = prevData.teams || [];
+            const updatedTeams = teams.map((team) =>
+                team.teamId === newTeam.teamId ? { ...team, ...newTeam } : team
+            );
+    
+            if (!updatedTeams.some((team) => team.teamId === newTeam.teamId)) {
+                updatedTeams.push(newTeam);
+            }
+    
+            return { ...prevData, teams: updatedTeams };
+        });
+    };
+    
     const setUniverseMenuData = (newData) => {
         setPtreData((prevData) => ({
             ...prevData,
@@ -80,8 +83,10 @@ export const useTeams = () => {
 
 export const useCurrentTeam = () => {
     const { ptreData } = usePtre();
-    return ptreData?.teams.find((team) => team.teamId === ptreData.currentTeamId);
+    const teams = ptreData?.teams || [];
+    return teams.find((team) => team.teamId === ptreData?.currentTeamId);
 };
+
 
 export const useUniverseMenuData = () => {
     const { ptreData } = usePtre();
