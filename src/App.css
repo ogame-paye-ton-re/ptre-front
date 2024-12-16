@@ -150,9 +150,11 @@ a {
   text-align: left;
 }
 
-.center {
-  text-align: center;
+.center, .text-center {
+  text-align: center !important;
 }
+
+
 
 .box_1 {
   margin: auto;
