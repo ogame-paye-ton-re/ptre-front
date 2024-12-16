@@ -3,6 +3,8 @@ import { useCurrentTeam, useUniverseMenuData } from '../../context/PtreContext';
 
 import { formatDate } from '../../utils/date';
 import { formatWithThousandSeparator } from '../../utils/numbers';
+import Tooltip from "./../../shared/Tooltip/Tooltip";
+
 import api from './../../utils/api';
 
 import './TeamTargets.css';
@@ -132,8 +134,40 @@ const TeamTargets = () => {
                                     <th>Alliance</th>
                                     <th>Fleet Points</th>
                                     <th>Ship Count</th>
-                                    <th>Last Spy</th>
-                                    <th>Last Check</th>
+                                    <th>Last Spy
+                                        <Tooltip content={
+                                            <>
+                                                <p>Data from the last spy mission. This includes the most recent spy report of the target.</p>
+                                                <ul>
+                                                    <li><span style={{ color: 'green' }}>Green:</span> Recent check (&lt; 1 week)</li>
+                                                    <li><span style={{ color: 'orange' }}>Orange:</span> Moderate check (&lt; 1 month)</li>
+                                                    <li><span style={{ color: 'red' }}>Red:</span> No check for over a month</li>
+                                                    <li><span style={{ color: 'gray' }}>Gray:</span> No check recorded</li>
+                                                </ul>
+                                            </>
+                                        }>
+                                            <span className="tooltip-wrapper">
+                                                <span className="tooltip-icon">❓</span>
+                                            </span>
+                                        </Tooltip>
+                                    </th>
+                                    <th>Last Check
+                                        <Tooltip content={
+                                            <>
+                                                <p>Last time the player was checked.</p>
+                                                <ul>
+                                                    <li><span style={{ color: 'green' }}>Green:</span> Recent check (&lt; 1 hour)</li>
+                                                    <li><span style={{ color: 'orange' }}>Orange:</span> Moderate check (&lt; 1 day)</li>
+                                                    <li><span style={{ color: 'red' }}>Red:</span> No check for over a day</li>
+                                                    <li><span style={{ color: 'gray' }}>Gray:</span> No check recorded</li>
+                                                </ul>
+                                            </>
+                                        }>
+                                            <span className="tooltip-wrapper">
+                                                <span className="tooltip-icon">❓</span>
+                                            </span>
+                                        </Tooltip>
+                                    </th>
                                     <th>IG Activities (Ally)</th>
                                     <th className='text-center'>Status</th>
                                     <th>Actions</th>
@@ -142,7 +176,10 @@ const TeamTargets = () => {
                             <tbody>
                                 {targets.map((target, index) => (
                                     <tr key={index}>
-                                        <td>{target.name}</td>
+                                        <td>{target.name}
+                                            {target.alias &&
+                                                target.alias !== target.name &&
+                                                ` (${target.alias})`}</td>
                                         <td>{target.alliance || 'N/A'}</td>
                                         <td>{formatWithThousandSeparator(target.fleet_points)}</td>
                                         <td>{formatWithThousandSeparator(target.ship_count)}</td>
