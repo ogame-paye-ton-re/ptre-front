@@ -2,15 +2,14 @@ services:
   # PTRE Frontend for Development
   ptre-frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.dev
+      context: ./../
+      dockerfile: ops/Dockerfile.dev
     image: react-dev:latest
     container_name: ptre-frontend-dev
-    profiles: ["dev"]
     environment:
       - PORT=3001
     volumes:
-      - ./:/usr/src/app
+      - ./../:/usr/src/app
     ports:
       - "3001:3001"
     networks:
