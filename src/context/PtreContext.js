@@ -3,6 +3,12 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const PtreContext = createContext();
 
 function migrateCookiesToLocalStorage() {
+  const existingData = localStorage.getItem("ptreData");
+  if (existingData && existingData) {
+    console.log("ptreData already exists in localStorage. Skipping migration.");
+    return;
+  }
+
   const cookies = document.cookie.split("; ");
   const teams = [];
   let currentTeamId = null;
@@ -45,12 +51,6 @@ function migrateCookiesToLocalStorage() {
 
   if (teams.length === 0) {
     console.log("No cookies to migrate.");
-    return;
-  }
-
-  const existingData = localStorage.getItem("ptreData");
-  if (existingData && existingData) {
-    console.log("ptreData already exists in localStorage. Skipping migration.");
     return;
   }
 
