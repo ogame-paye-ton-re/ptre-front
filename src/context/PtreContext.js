@@ -35,8 +35,8 @@ function migrateCookiesToLocalStorage() {
           adminKey: null,
           teamName: decodeURIComponent(teamName),
           teamId: teamId,
-          defaultUnivers: index == 1 ? teamUniverse : "",
-          defaultCountry: index == 1 ? teamCountry : "",
+          defaultUnivers: index === 1 ? teamUniverse : "",
+          defaultCountry: index === 1 ? teamCountry : "",
           admin: false,
         });
       }
