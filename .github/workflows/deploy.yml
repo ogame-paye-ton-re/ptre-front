@@ -26,7 +26,9 @@ jobs:
       run: npm run build
     #- name: Test project
     #  run: npm test
-    - name: Deploy Project to Dev
+    - name: Add commit ID to footer
+      run: sed -i "s/VERSION_REPLACE_ME/${GITHUB_SHA}/g" build/static/js/main.*.js
+    - name: Deploy project to dev environment
       uses: AbleLincoln/push-to-sftp@v2.1
       with:
         host: ${{ secrets.DEV_SSH_HOST }}
