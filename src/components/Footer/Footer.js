@@ -69,7 +69,7 @@ const Footer = () => {
                 </div>
                 <div className="clear"></div>
                 <div className="footer-part-bottom">
-                    © PTRE, by GeGe, since October 2018<br />
+                    © PTRE, by GeGe, since October 2018 - VERSION_REPLACE_ME<br />
                     <div className="footer-apps-btns">
                         <a title="Join us on Discord" target="_blank" rel="noopener noreferrer" className="footer-apps-btn i-app-discord" href="https://discord.gg/WsJGC9G"></a>
                         <a title="Support PTRE" target="_blank" rel="noopener noreferrer" className="footer-apps-btn i-app-kofi" href="https://ko-fi.com/ptreforogame"></a>
