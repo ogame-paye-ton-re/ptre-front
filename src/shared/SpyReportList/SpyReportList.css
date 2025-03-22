@@ -1,0 +1,143 @@
+.spy-report-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.spy-report-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.report-body {
+    margin-top: 10px;
+    margin-bottom: 1rem;
+}
+
+.report-body > div, .report-body > div > div {
+    margin-bottom: 0.5rem;
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.report-data > div,
+.report-player,
+.report-resources,
+.report-technology {
+    display: flex;
+    align-items: center;
+}
+
+.icon-date,
+.icon-player,
+.icon-location,
+.icon-ships,
+.icon-fleet,
+.icon-defense,
+.icon-resources,
+.icon-tech {
+    margin-right: 0.5rem;
+    color: #555;
+    min-width: 20px;
+    text-align: center;
+}
+
+.report-data > div span,
+.report-player span,
+.report-location span,
+.report-resources span,
+.report-technology span {
+    flex-grow: 1;
+    display: inline-block;
+}
+
+.report-stats > div, .report-location {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.report-stats > div i, .report-location > i {
+    margin-right: 0.5rem;
+    color: #555;
+    min-width: 20px;
+    text-align: center;
+}
+
+.report-stats > div span:first-child, .report-location > span:first-child {
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.report-stats > div span:last-child, .report-location > span:last-child {
+    text-align: right;
+    color: #888;
+    margin-left: 1rem;
+    text-transform: uppercase;
+    font-size: 11px;
+    white-space: nowrap;
+    flex: 1 1;
+    width: auto;
+}
+
+.report-header {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.report-footer {
+    text-align: center;
+}
+
+.report-visibility {
+    font-weight: bold;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.report-visibility.public {
+    background-color: #28a745;
+    color: white;
+}
+
+.report-visibility.private {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-display-report {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .spy-report-cards {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}

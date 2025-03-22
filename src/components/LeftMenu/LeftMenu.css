@@ -1,0 +1,133 @@
+.left-menu {
+    width: 80px;
+    background-color: rgb(0 0 0 / 1);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.left-menu .logo {
+    margin-bottom: 30px;
+}
+
+.left-menu .logo-icon {
+    width: 36px;
+    height: 40px;
+}
+
+.left-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.left-menu li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.team-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.team-link {
+    /* padding: 10px; */
+    box-shadow: 0 0 1px #2b2c2c inset, 0 0 1px #2b2c2c;
+    background-color: rgb(0 0 0 / 1);
+    border-color: rgb(43 44 44 / 1);
+    border-width: 2px;
+    border-radius: 9999px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    text-align: center;
+    cursor: pointer;
+}
+
+.team-link:hover {
+    box-shadow: 0 0 1px #737373 inset, 0 0 1px #737373;
+    border-color: rgb(115 115 115 / 1);
+}
+
+.team-icon {
+    width: 100%;
+    height: 100%;
+    background-color: #444;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.team-link:hover .team-icon {
+    background-color: #737373;
+}
+
+.team-link.active {
+    border: 2px solid #ff9800;
+}
+
+.team-icon.active {
+    background-color: #444;
+}
+
+.team-icon {
+    background-color: #444;
+}
+
+.team-item.add-team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-icon.add-team-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.team-item.add-team:hover .team-icon.add-team-icon {
+    background-color: #737373;
+}
+
+.team-divider {
+    border: 0;
+    border-top: 1px solid #444;
+    width: 70%;
+    opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+    .left-menu {
+        display: none;
+    }
+}

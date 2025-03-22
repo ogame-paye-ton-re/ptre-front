@@ -1,0 +1,75 @@
+.events-container .box_1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+}
+
+.events-container .box_1 {
+    overflow-x: auto;
+}
+
+.events-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.events-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.events-table th,
+.events-table td {
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    font-size: 12px;
+}
+
+.events-table th {
+    background-color: #02030a;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.events-table tbody tr:nth-child(odd) {
+    background-color: #0b0b0b;
+}
+
+.events-table tr:nth-child(even) {
+    background-color: #12171C;
+}
+
+.events-table td a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.events-table td .events-table-player-icon {
+    display: flex;
+    align-items: center;
+}
+
+.events-table td a img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+    .events-container {
+        flex-direction: column;
+    }
+
+    .events-table th,
+    .events-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}

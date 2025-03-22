@@ -1,16 +1,21 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import './Footer.css';
 
 const Footer = () => {
     return (
         <footer className="footer">
+            <div style={{ paddingLeft: '80px'}}>
+                <div className="footer-radius-bar"></div>
+            </div>
             <div className="container">
                 <div className="footer-left">
                     {[
                         {
                             title: "General",
                             links: [
-                                { href: "/#", text: "Presentation" },
+                                { href: "/?page=splash", text: "Presentation" },
                                 { href: "/#", text: "Discord Setup" },
                             ],
                         },
@@ -41,9 +46,9 @@ const Footer = () => {
                             <span className="c-1">{category.title}</span>
                             {category.links.map((link, linkIndex) => (
                                 <div key={`link-${index}-${linkIndex}`} className="footer-link">
-                                    <a href={link.href} title={link.text}>
+                                    <Link to={link.href} title={link.text}>
                                         {link.text}
-                                    </a>
+                                    </Link>
                                 </div>
                             ))}
                         </div>

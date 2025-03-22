@@ -1,0 +1,66 @@
+.tooltip-wrapper {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 5px;
+    z-index: 100;
+    float: right;
+}
+
+.tooltip-box {
+    position: fixed;
+    background: #222;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    width: max-content;
+    max-width: 250px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.tooltip-wrapper:hover .tooltip-box {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-wrapper .tooltip-box {
+    left: auto;
+    right: auto;
+    top: auto;
+}
+
+.tooltip-box ul {
+    list-style-type: disclosure-closed;
+}
+
+.tooltip-icon {
+    font-size: 0.9rem;
+    color: #007bff;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.targets-table th {
+    position: relative;
+}
+
+.box_1 {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .tooltip-box {
+        max-width: calc(100vw - 40px);
+        width: auto;
+    }
+}

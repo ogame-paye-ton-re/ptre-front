@@ -23,58 +23,33 @@ export const setAuthToken = (token) => {
 
 apiClient.interceptors.request.use(
     async (config) => {
-        console.log(`[API Request]: ${config.method.toUpperCase()} ${config.url}`, config);
-
-        // let sessionId = getCookie('PHPSESSID');
-        // let ptreId = getCookie('prte_id');
-        // console.log(config.headers)
-
-        // if (!sessionId && !isFetchingSession) {
-        //     isFetchingSession = true;
-        //     console.log('Session cookie missing. Requesting a new session...');
-
-        //     try {
-        //         const response = await api.post('/api.php?view=session');
-        //         if (response.data && response.data.session && response.data.session.session_id) {
-        //             console.log('Session created:', response.data.session.session_id);
-        //             sessionId = response.data.session.session_id;
-        //             ptreId = response.data.session.session_id;
-        //         }
-        //     } catch (error) {
-        //         console.error('Failed to create a session:', error);
-        //     } finally {
-        //         isFetchingSession = false;
-        //     }
-        // }
-
-        // if (config.method === 'post' && !isFetchingSession) {
-        //     if (!config.data || typeof config.data !== 'object') {
-        //         config.data = {};
-        //     }
-
-        //     config.data.ptre_id = ptreId || '';
-        //     config.data.session_id = sessionId || '';
-        // }
-
+        if (process.env.NODE_ENV === 'development') {
+            console.log(`[API Request]: ${config.method.toUpperCase()} ${config.url}`, config);
+        }
         return config;
     },
     (error) => {
-        console.error('[API Request Error]', error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error('[API Request Error]', error);
+        }
         return Promise.reject(error);
     }
 );
 
-
 apiClient.interceptors.response.use(
     (response) => {
-        console.log(`[API Response]:`, response);
+        if (process.env.NODE_ENV === 'development') {
+            console.log(`[API Response]:`, response);
+        }
         return response.data;
     },
     async (error) => {
-        console.error('[API Response Error]', error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error('[API Response Error]', error);
+        }
 
         if (error.response?.status === 401) {
-            // Token refresh ??
+            // Token refresh ?? 
         }
 
         const errorData = error.response?.data || {};

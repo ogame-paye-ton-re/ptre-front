@@ -19,7 +19,20 @@ export const formatDate = (timestamp, format = 'short') => {
         hour12: false 
     };
 
-    const options = format === 'long' ? longFormatOptions : shortFormatOptions;
+    const dateOnlyFormatOptions = { 
+        day: '2-digit', 
+        month: 'short', 
+        year: 'numeric' 
+    };
+
+    let options;
+    if (format === 'long') {
+        options = longFormatOptions;
+    } else if (format === 'dateOnly') {
+        options = dateOnlyFormatOptions;
+    } else {
+        options = shortFormatOptions;
+    }
 
     const formattedDate = date.toLocaleString('en-GB', options);
 

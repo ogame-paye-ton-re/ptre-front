@@ -1,0 +1,131 @@
+.team-targets {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.targets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    min-width: 800px;
+}
+
+.targets-table th,
+.targets-table td {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.targets-table th {
+    background-color: #02030a;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    position: relative;
+}
+
+.targets-table tbody tr:nth-child(odd) {
+    background-color: #0b0b0b;
+}
+
+.targets-table tbody tr:nth-child(even) {
+    background-color: #12171C;
+}
+
+.targets-table td:last-child, .targets-table th:last-child {
+    text-align: center;
+}
+
+.btn-add-target {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.btn-ignore-target {
+    background-color: rgb(220, 53, 69);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    min-width: 120px;
+    max-width: 120px;
+    border-radius: 3px;
+}
+
+.btn-group {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-enable-target {
+    background-color: rgb(40, 167, 69); 
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    min-width: 88px;
+    max-width: 88px;
+}
+
+.btn-enable-target:hover {
+    background-color: rgb(32, 136, 55); 
+}
+
+.btn-remove-target {
+    background-color: gray; 
+    color: rgb(220, 53, 69);
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-remove-target i {
+    font-size: 14px;
+}
+
+/* .btn-add-target:hover {
+    background-color: #0056b3;
+} */
+
+.box_1 {
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.target-current-status {
+    font-weight: bold;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.target-current-status.enabled {
+    background-color: #28a745;
+    color: white;
+}
+
+.target-current-status.ignored {
+    background-color: #dc3545;
+    color: white;
+}
+
+.target-current-status.none {
+    background-color: gray;
+    color: white;
+}

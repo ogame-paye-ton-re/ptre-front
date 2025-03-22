@@ -16,3 +16,9 @@ export const shortenNumber = (num) => {
     }
     return num.toString();
 };
+
+export const formatWithThousandSeparator = (num) => {
+    if (isNaN(num)) return num;
+
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+};

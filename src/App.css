@@ -10,6 +10,7 @@
   --text-color: #212529;
   --header-height: 60px;
   --font-family: 'RobotoRegular';
+  --header-height: 30px;
 }
 
 ::-webkit-scrollbar {
@@ -53,41 +54,61 @@ border: 1px solid #081938 !important;
 transition: background-color 5000s ease-in-out 0s;
 }
 
-html,
-body {
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
-  background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
+  /*background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;*/
+  background-color: #0a0a0a;
   background-size: cover;
-  color: var(--text-color);
+  color: #f1f1f1;
   display: flex;
   flex-direction: column;
-  position: absolute;
   font-size: 14px;
-  left: 0;
-  right: 0;
   top: 0;
   bottom: 0;
-  padding-top: 45px;
-  color: #f1f1f1;
-  overflow: auto;
+  left: 0;
+  right: 0;
   overflow-x: hidden;
+  overflow-y: auto; 
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  flex-grow: 1;
+  min-height: 100vh;
+}
+
+.app-layout {
+  flex: 1;
+  overflow: hidden;
 }
 
 .main-content {
-  flex: 1; 
-  padding: 20px 0px;
+  flex: 1;
+  padding-top: var(--header-height);
   width: 100%;
-  background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed;
+  /* background: url('/public/assets/ogame_background.jpg') no-repeat center center fixed; */
+  background-color: #0a0a0a;
   background-size: cover;
-  margin-top: 20px;
+  padding-bottom: 120px;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .main-content .container {
@@ -115,7 +136,7 @@ a {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 0 15px;
   box-sizing: border-box;
@@ -129,9 +150,11 @@ a {
   text-align: left;
 }
 
-.center {
-  text-align: center;
+.center, .text-center {
+  text-align: center !important;
 }
+
+
 
 .box_1 {
   margin: auto;
@@ -163,11 +186,54 @@ a {
   text-decoration: underline;
 }
 
-.logo {
-  flex-shrink: 0;
+.icon-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.icon-title img.section-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.icon-title h3 {
+  font-size: 24px;
+  margin: 0;
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.section-link {
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.section-description {
+  font-size: 14px;
+  color: gray;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .icon-title img.section-icon {
+      width: 25px;
+      height: 25px;
+  }
+
+  .section-description {
+      font-size: 12px;
+  }
 }
 
 @media (min-width: 768px) {
+  .content-wrapper {
+    padding-left: 80px;
+  }
+
   .container {
     flex-direction: row;
     gap: 50px;

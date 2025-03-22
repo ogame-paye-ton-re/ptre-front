@@ -2,85 +2,120 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
+import { PtreProvider, useCurrentTeam, useUniverseMenuData } from './context/PtreContext';
+
 import Header from './components/Header/Header';
+import LeftMenu from './components/LeftMenu/LeftMenu';
 import Footer from './components/Footer/Footer';
+import LoginModal from './components/Modals/LoginModal/LoginModal';
 
-import { getCookie } from './utils/cookieUtils';
-
+import ScrollToTop from './shared/ScrollToTop/ScrollToTop';
+import BackToTopButton from './shared/BackToTopButton/BackToTopButton';
 import './App.css';
 
 const Splash = lazy(() => import('./components/Splash/Splash'));
 const TeamDashboard = lazy(() => import('./components/Team/Home/Home'));
+const TeamTargetList = lazy(() => import('./components/Team/TargetList/TargetList'));
 
 function App() {
-  const [teamKey, setTeamKey] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('join');
+  const [animationClass, setAnimationClass] = useState("");
 
-  useEffect(() => {
-    // let sessionId = getCookie("session_id");
-    // let ptreId = getCookie("prte_id");
+  const toggleModal = () => {
+    if (!isModalOpen) {
+      toggleTab("join")
+      setAnimationClass("fade-in");
+      setIsModalOpen(true);
+    } else {
+      setAnimationClass("fade-down");
+      setTimeout(() => {
+        setIsModalOpen(false);
+      }, 250);
+    }
+  };
 
-    // if (!sessionId) {
-    //   sessionId = generateSessionId();
-    //   setCookie("session_id", sessionId, { path: "/" });
-    // }
-
-    // if (!ptreId) {
-    //   setCookie("prte_id", sessionId, { path: "/", expires: 2114377200 });
-    // }
-
-    const cookieValue = getCookie("ptre_team_key");
-    setTeamKey(cookieValue || "TMDCD4R6ZVT27BPEHU");
-  }, []);
+  const toggleTab = (tabName) => {
+    setActiveTab(tabName);
+  };
 
   return (
     <HelmetProvider>
       <Router>
-        <div className="App">
-          {/* Header */}
-          <Header />
+        <ScrollToTop />
+        <PtreProvider>
+          <div className="App">
+            <Header
+              toggleModal={toggleModal}
+            />
 
-          {/* Main Content */}
-          <PageContent teamKey={teamKey} />
+            <div className="app-layout">
+              <LeftMenu toggleModal={toggleModal} />
+              <div className="content-wrapper">
+                <PageContent />
+              </div>
+            </div>
 
-          {/* Footer */}
-          <Footer />
-        </div>
+            <Footer />
+          </div>
+          <BackToTopButton />
+          {/* Modal Dialog */}
+          <LoginModal
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+            animationClass={animationClass}
+            activeTab={activeTab}
+            toggleTab={toggleTab}
+          />
+        </PtreProvider>
       </Router>
     </HelmetProvider>
   );
 }
 
-function PageContent({ teamKey }) {
+function PageContent() {
+  const teamData = useCurrentTeam();
+  const universeData = useUniverseMenuData();
+
   const [currentPage, setCurrentPage] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const page = queryParams.get('page');
-    setCurrentPage(page); 
+    setCurrentPage(page);
   }, [location]);
 
   const isSplashPage = () =>
-    currentPage === 'splash' || (location.pathname === '/' && !teamKey);
+    currentPage === 'splash' || (!currentPage && !teamData && !universeData);
+
+  const isTeamDashboardPage = () =>
+    !currentPage && (teamData || universeData);
 
   const renderPage = () => {
-    console.log('Rendering page:', currentPage);
-    console.log(location.pathname)
-    
     if (isSplashPage()) {
       return <Splash />;
     }
 
-    if (location.pathname === '/' && teamKey && !currentPage) {
+    if (isTeamDashboardPage()) {
       return <TeamDashboard />;
     }
 
-    return <div>Page not found</div>;
+    if (teamData && universeData) {
+      switch (currentPage) {
+        case 'players_list':
+          return <TeamTargetList />;
+        default:
+          return <TeamDashboard />;
+      }
+    }
+
+    return <div className="container">Page not found</div>;
   };
 
   return (
     <main className="main-content">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         {renderPage()}
       </Suspense>
     </main>
