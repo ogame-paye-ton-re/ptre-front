@@ -24,14 +24,14 @@ const LatestEvents = ({ setError }) => {
         const fetchEventBoxData = async () => {
             if (!teamData?.teamKey) {
                 return api.get(
-                    `/api.php?view=last_events&country=${universeData.community}&univers=${universeData.server}`,
+                    `/api.php?api=last_events&country=${universeData.community}&univers=${universeData.server}`,
                     { signal: controller.signal }
                 );
             }
     
             const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
             return api.post(
-                `/api.php?view=last_events&country=${universeData.community}&univers=${universeData.server}`,
+                `/api.php?api=last_events&country=${universeData.community}&univers=${universeData.server}`,
                 { team_key: teamKeyWithoutDash },
                 { signal: controller.signal }
             );

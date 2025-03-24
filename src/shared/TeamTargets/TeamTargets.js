@@ -30,7 +30,7 @@ const TeamTargets = () => {
             try {
                 setLoading(true);
                 const response = await api.post(
-                    `/api.php?view=players_list&country=${universeData.community}&univers=${universeData.server}`,
+                    `/api.php?api=players_list&country=${universeData.community}&univers=${universeData.server}`,
                     {
                         team_key: teamKeydWithoutDash,
                     },
@@ -65,7 +65,7 @@ const TeamTargets = () => {
 
         try {
             const response = await api.post(
-                `/api.php?view=target_update&country=${universeData.community}&univers=${universeData.server}&requested_status=${status}&player_id=${target.player_id}`,
+                `/api.php?api=target_update&country=${universeData.community}&univers=${universeData.server}&requested_status=${status}&player_id=${target.player_id}`,
                 { team_key: teamKeydWithoutDash }
             );
 

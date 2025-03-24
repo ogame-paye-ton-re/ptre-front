@@ -30,13 +30,13 @@ const LatestPlayers = ({ setError }) => {
     
                 if (!teamData?.teamKey) {
                     response = await api.get(
-                        `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
+                        `/api.php?api=topx_box&country=${universeData.community}&univers=${universeData.server}`,
                         { signal: controller.signal }
                     );
                 } else {
                     const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
                     response = await api.post(
-                        `/api.php?view=topx_box&country=${universeData.community}&univers=${universeData.server}`,
+                        `/api.php?api=topx_box&country=${universeData.community}&univers=${universeData.server}`,
                         { team_key: teamKeyWithoutDash },
                         { signal: controller.signal }
                     );

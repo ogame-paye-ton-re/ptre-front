@@ -47,7 +47,7 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
         }
 
         try {
-            const response = await api.post('/api.php?view=team_login', { team_key_login: loginKey });
+            const response = await api.post('/api.php?api=team_login', { team_key_login: loginKey });
 
             if (response.RESULT_CODE === 0) {
                 const loginStatus = response.data.login_status;
@@ -140,7 +140,7 @@ const LoginModal = ({ isModalOpen, toggleModal, animationClass, activeTab, toggl
         }
 
         try {
-            const response = await api.post('/api.php?view=team_create', { team_name: teamName });
+            const response = await api.post('/api.php?api=team_create', { team_name: teamName });
 
             if (response.RESULT_CODE === 0) {
                 const creationStatus = response.data.creation_status;

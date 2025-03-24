@@ -97,10 +97,10 @@ const Header = ({ toggleModal }) => {
         const fetchUniversesMenu = async () => {
             try {
                 const response = teamData?.teamKey
-                    ? await api.post("/api.php?view=universes_menu", {
+                    ? await api.post("/api.php?api=universes_menu", {
                         team_key: teamData.teamKey.replace(/-/g, ""),
                     })
-                    : await api.get("/api.php", { view: "universes_menu" });
+                    : await api.get("/api.php", { api: "universes_menu" });
 
                 if (response.RESULT_CODE === 0 && response.data.bloc_error === 0) {
                     setCommunities(response.data.content);

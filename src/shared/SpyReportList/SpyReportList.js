@@ -21,14 +21,14 @@ const SpyReportList = ({ setError }) => {
         const fetchEventBoxData = async () => {
             if (!teamData?.teamKey) {
                 return api.get(
-                    `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
+                    `/api.php?api=main&country=${universeData.community}&univers=${universeData.server}`,
                     { signal: controller.signal }
                 );
             }
     
             const teamKeyWithoutDash = teamData.teamKey.replace(/-/g, '');
             return api.post(
-                `/api.php?view=main&country=${universeData.community}&univers=${universeData.server}`,
+                `/api.php?api=main&country=${universeData.community}&univers=${universeData.server}`,
                 { team_key: teamKeyWithoutDash },
                 { signal: controller.signal }
             );
